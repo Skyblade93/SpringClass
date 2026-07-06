@@ -1,0 +1,556 @@
+package test;
+
+import java.lang.reflect.Array;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.OptionalDouble;
+import java.util.Random;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.concurrent.Callable;
+import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
+
+public class test2 {
+
+	
+	
+	public static void main (String[] args) {
+		test2 test2 = new test2();
+   List<String> a = new ArrayList<String>();
+		Integer[] z = {1,2,3,4,7,8,6,10};
+	
+		
+		
+	//	test2.ex1();
+	// a =test2.ex2();
+	//	test2.ex3();
+		
+	//System.out.println(test2.ex4(z));
+	
+		//test2.ex5();
+				\
+		//test2.ex6();
+		
+		//test2.ex7();
+		
+		//test2.ex8(z);
+		
+		//test2.ex9();
+		
+		//test2.ex10();
+		
+		//test2.ex11();
+		
+		//test2.ex12();
+		 
+		//test2.ex13();
+		
+		//test2.ex14();
+		
+		//test2.ex15();
+		
+		//test2.ex16();
+		
+		//test2.ex17();
+		
+		//test2.ex18();
+		
+		//test2.ex19();
+		
+		//test2.ex20();
+		
+		//test2.ex21();
+		
+		//test2.ex22();
+		// test2.ex23();
+		
+		//test2.ex24();
+		//test2.ex25();
+		//test2.ex26(z);
+		//test2.ex27(z);
+		//test2.ex28();
+		//test2.ex29();
+		//test2.ex30();
+		//test2.ex31();
+		test2.ex32();
+		}
+	/*
+	 * prendendo i valori di un array stampa il loro valore elevato alla 5
+	 * 
+	 */
+	public void ex1() {
+
+		ArrayList<Integer> a = new ArrayList<Integer>();
+		
+		a.add(1);a.add(2);a.add(3);a.add(4);a.add(5);a.add(6);a.add(7);a.add(8);a.add(9);a.add(10);
+		
+		Integer b = a.stream().map((x)->x*x*x*x*x).reduce(0,Integer::sum);
+		
+
+		System.out.println(b);
+
+	}
+	/**
+	 * prendendo un array di Integher 
+	 * 
+	 * @return i valori della arraylist elevati alla 5
+	 */
+	public List<String> ex2() {
+		
+    ArrayList<Integer> a = new ArrayList<Integer>();
+		
+		a.add(1);a.add(2);a.add(3);a.add(4);a.add(5);a.add(6);a.add(7);a.add(8);a.add(9);a.add(10);
+		
+		String b = a.stream().map((x)->x*x*x*x*x).map(x-> x.toString()+" ,").reduce(" ",String::concat);
+		List<String> c = a.stream().map((x)->x*x*x*x*x).map(x-> x.toString()).collect(Collectors.toList());
+
+		System.out.println(b.substring(0,b.length()-1));
+		
+		return c;
+		
+	}
+	/**
+	 * prende un array di Stringe e le pone in Uppercase inserendole in una List
+	 * 
+	 */
+
+	public void ex3( ) {
+		
+		String [] array = {"a","b","c"};
+		List<String> list = Arrays.asList(array);      
+		List<String> upp = new ArrayList<String>();
+
+		upp = list.stream().map(String::toUpperCase).collect(Collectors.toList());
+
+	    System.out.println(upp);
+	   
+	}
+	/**
+	 * 
+	 * @param arr
+	 * @return l'ultimo elemento dell array
+	 */
+	
+	public Integer ex4(Integer[] arr) {
+		return  Arrays.asList(arr).stream().sorted().reduce((a,b)->b).orElse(null);
+	}
+	/**
+	 * viene iterato uno Stream in modo che stampera solo i valori dispari 
+	 */
+	public void  ex5() {
+	 IntStream.iterate(1,i -> 2+i)
+				.limit(20)
+				.forEach(System.out::println);
+	}
+	/**
+	 * viene generato un array di elementi randomici poi questi vengono stampati a video
+	 */
+	public void ex6() {
+		IntStream.generate(new Random()::nextInt).limit(10).forEach(System.out::println);
+		
+	}
+	/**
+	 * viene generato uno Stream di int vengono presi 5 di essi
+	 * infine vengono convertiti in stringhe e viene aggiunta la virgola alla fine
+	 */
+	public void ex7() {
+	
+	IntStream a = new Random().ints(0, 10);
+	
+    String  b  =  a.limit(5).mapToObj(Integer::toString) .collect(Collectors.joining(", "));
+    
+
+    System.out.println(b);
+	}
+	/**
+	 * viene preso in ingresso un parameto array di Integer
+	 * questo viene convertito in string vengono aggiunte le vergolette dopo ogni numero poi stampato
+	 * 
+	 */
+	public void ex8(Integer[] a) {
+		
+		String b = Arrays.asList(a).stream().map(i->((Integer)i).toString()).collect(Collectors.joining(", "));
+		
+		System.out.println(b);
+	}
+	/**
+	 * vengono generati dei valori int randomici da 0 a 20 poi vengono boxati e inseriti dieci in una lista di integer
+	 */
+
+	public void ex9() {
+		
+		IntStream a = new Random().ints(0,20);
+		
+		List<Integer> b = a.boxed().limit(10).toList();
+		
+		System.out.println(b);
+	}
+	/**
+	 * vengono presi valori randomici tra 0 a 10 di questi ne vengono presi 5 convertiti in String 
+	 * poi vengono convertiti in Integer e in entrambi vengono ridotti a un unico elemento poi stampati a video
+	 */
+   
+	public void ex10() {
+	
+		IntStream a = new Random().ints(0, 10);
+		
+	    List<String>  b  =  a.limit(5).mapToObj(Integer::toString).toList();
+	    
+	    List<Integer> c = b.stream().map(Integer::parseInt).collect(Collectors.toList());
+	    
+	    String z = b.stream().reduce((x,y)->x+y).orElse(" ");
+	    Integer j = c.stream().reduce((x,y)->x+y).orElse(0);
+	    
+	    System.out.println(z);
+	    
+	    System.out.println(j);
+		
+	}
+	/**
+	 * vengono generati dei valori da 0 a 100 poi si inseriscono 10 di questi in una lista di Integher 
+	 * in fine essi vengono ridotti a un unico valore  tramite somma
+	 */
+	
+	public void ex11() {
+		
+	IntStream a = new Random().ints(0,100) ;
+	
+	List<Integer> b =  a.limit(10).boxed().toList();
+	
+	Integer z = b.stream().reduce((x,y)->x+y).orElse(null);
+	
+	System.out.println(b);
+	System.out.println(z);
+	
+	}
+
+	
+	public void ex12() {
+		/**
+		 * vengono generato valori double da 0 a 100 di questi vengono presi solo 4 valori 
+		 * poi vengono convertiti in int poi in String e in fine viene aggiunto lo spazio tra i valori 
+		 */
+		DoubleStream a = new Random().doubles(0,100);
+		
+        List<String> b = a.limit(4)
+        		.boxed()
+        		.map(x->x)
+        		.mapToInt(Double::intValue)
+        		.mapToObj(Integer::toString)
+        		.map(x->x+" ")
+        		.collect(Collectors.toList());
+	
+        System.out.println(b);
+		
+	}
+	/**
+	 * viene generato uno stream di valori da 1 a 10 poi vengono sommati e in fine stampate sia la lista poi
+	 * l' Integher di riferimento
+	 */
+	public void ex13() {
+		IntStream a = IntStream.rangeClosed(1, 10) ;
+		
+		List<Integer> b = a.boxed().toList();
+		
+		Integer c = b.stream().reduce((x,y)->x+y).orElse(null);
+		
+		System.out.println(b);
+		
+		System.out.println(c);
+	}
+	/**
+	 * Preso uno Stream di int vengono generati 100 valori poi vengono messi in ordine 
+	 * e infine filtrati tutti i valori minori di 8 collezionati poi stampati 
+	 */
+	public void ex14() {
+	
+	
+		IntStream a = new Random().ints(0,100);
+		
+		Set<Integer> b = a.limit(100).boxed().sorted().filter(x->x<8).collect(Collectors.toSet()) ;
+		
+		System.out.println(b);
+	}
+	/*
+	 * presa una string e una array di string esse vengono atraverso uno stream divise e aggiunte le virgole 
+	 * poi il risultato viene inserito in una String 
+	 * 
+	 */
+	
+	public void ex15() {
+		String[] a ={"ciao","sono","un","ragazzo","carino"};
+		String testString = "String";
+		String b = Arrays.stream(a).reduce(" ",(x,y)->x+" ,"+y);
+		String stringStream = testString.codePoints()
+				  .mapToObj(c -> String.valueOf((char) c)).reduce(" ",(x,y)->x+" ,"+y);
+		
+		System.out.println(stringStream.substring(3,stringStream.length() )+"\n"+b.substring(3,b.length()));
+		
+
+	}
+	/**
+	 * presa una String essa viene atraverso una Stream convertita in char poi invertite dalla prima all ultima 
+	 * e come risultato si ottiene la stringa al contrario
+	 */
+	
+	public void ex16() {
+		String a ="Java Interview";
+		
+		String b = a.codePoints().mapToObj(c->String.valueOf((char)c)).reduce("",(x,y)->y+x);
+		
+		System.out.println(b);
+	}
+	/**
+	 * in una lista di array vengono comparati i suoi valori per trovare il piu grande
+	 */
+	public void ex17() {
+		Integer[] list = {8,9,15,63,47,85,61,105,0,90};
+		
+		Integer a = Arrays.stream(list).max(Integer::compare).get();
+		
+		System.out.println(a);
+	}
+	/**
+	 * vengono convertiti i valori all interno di una Lista di Integer in Double per poi stamparne la media 
+	 */
+	public void ex18() {
+		List<Integer> list = Arrays.asList(8,2,6,9);
+		
+		
+	Double avg = list.stream().mapToDouble(x->x).average().orElse(0);
+	 
+	
+		
+		System.out.println(avg);
+		 
+	}
+	/*
+	 * presa una lista di String gli elementi vengono convertite in maiuscolo poi stampate a schermo 
+	 */
+	public void ex19() {
+		
+		List<String> a = Arrays.asList("ciao","sono","un","ragazzo","carino");
+		
+		List<String> b = a.stream().map(x->x.toUpperCase()).collect(Collectors.toList());
+		
+		System.out.println(b);
+	}
+	/**
+	 * presa una lista di Integer di valori randomici int vengono stampati a schermi in un unica stringa
+	 * i valori pari con la e e i valori dispari con la i, distaccati tra loro con una virgola
+	 */
+	public void ex20(){
+		
+		IntStream a = new Random().ints(0,100);
+		List<Integer> ints = a.limit(10).boxed().collect(Collectors.toList());
+		
+	String list = ints.stream().sorted()
+				  .map(i -> i % 2 == 0 ? "e" + i : "o" + i).collect(Collectors.joining(","));
+		
+		System.out.println(list);
+	}
+	/**
+	 * presi due interi vengono utilizati come limiti per gli IntStream poi la somma di uno dei due stream
+	 * viene utilizato come limite per la List<Integer> poi la lista viene stampata tu schermo 
+	 *   
+	 */
+	public void ex21() {
+		int x = 10;
+		int y = 20;
+		
+		IntStream a = new Random().ints(x,y);
+		IntStream z = new Random().ints(x,y);
+		
+		int v = z.limit(1).sum();
+		
+		List<Integer> b = a.limit(v).boxed().collect(Collectors.toList());
+		
+		System.out.println(v);
+		System.out.println(b);
+	}
+	/**
+	 * presa una IntStream di valori randomici, vengono presi 50 poi filtrati i dispari
+	 * poi messi in ordine numerico e in fine stampati 
+	 */
+	public void ex22() {
+		
+		IntStream a = new Random().ints(0,100);
+		
+		List<Integer>b = a.limit(50).boxed().filter(x->x%2==1).sorted().collect(Collectors.toList());
+		
+		
+		System.out.print(b);
+	}
+	/*
+	 * presa una lista di String, tramite una stream vengono resi maiuscoli poi viene preso il  primo carattere
+	 * e salvati in una lista di Caracter, poi stampati a schermo 
+	 */
+	public void ex23() {
+		List<String> a = Arrays.asList("sincerità","costruzione","empatia","momento","ostentazione"," ","chiasso","hotel","iniziare"," ","letteratura"
+				,"encriptazione","giallo","giacomo","estrazione");
+		
+
+		List<Character>b =	a.stream().map(x->x.toUpperCase().charAt(0)).collect(Collectors.toList());
+	
+	System.out.print(b);
+		
+		
+	}
+/**
+ * presa una Stream di long randomici essi vengono resi positivi tramite il metodo Math.abs()
+ * poi sommati tra loro e infine convertiti prima in String poi in long, vengono stampate la lista di long e la loro somma
+ */
+public void ex24() {
+
+	LongStream a = new Random().longs();
+	
+	List<Long> b = a.limit(20).boxed().map(x->Math.abs(x)).toList();
+	
+	
+	
+	Long c = b.stream().reduce((x,y)->(x+y)).orElse(null);
+	
+	String g = c.toString();
+	
+	long d = Long.parseLong(g);
+	
+	System.out.println(b);
+	
+	
+	System.out.println(d);
+}
+/**
+ * presa una stream di valori randomici tra 0-20, limitandone l' imput a 8
+ * vengono presi e stampati prima tutti i valori poi solo i positivi 
+ */
+public void ex25() {
+
+	IntStream a = new Random().ints(0,20);
+
+	List<Integer> b = a.limit(8).boxed().collect(Collectors.toList());
+			
+	long c	= b.stream().filter(x->x%2==0).collect(Collectors.counting());
+	
+	System.out.println(b);
+	
+	System.out.println(c);
+}
+
+/**
+ * Preso in ingresso un array di Integer, viene fatta una stream sopra per poi sommare i valori tra loro e convertirli in String
+ * 
+ */
+public void ex26(Integer[] arr) {	
+	String b =  Arrays.stream(arr)
+			.reduce(0,Integer::sum).toString();	
+	
+	System.out.print( b.getClass());
+}
+/*
+ * dati un array di Integer e una Lista di valori randomici da 0-10 e una lista di char,
+ * le prime due vengono concatenate, poi viene inserito attraverso la terza stream dei caratteri in ordine  
+ */
+public void ex27(Integer[] arr) {
+	Stream<Integer> stream1 = Arrays.stream(arr);
+	IntStream stream2 = new Random().ints(0,10).limit(8);
+	
+	List<Integer> a = Stream.concat(stream1, stream2.boxed()).collect(Collectors.toList());
+	List<String> b = Arrays.asList("a","b","c","d","f","g","h","i","l","m","o","p","q","r","s","t","u","v","z");
+	List<String> result = new ArrayList<String>();
+	
+	System.out.println(a);
+	
+	IntStream.range(0, a.size()).forEach(i -> result.add(a.get(i)+b.get(i)));
+	
+	System.out.println(result);
+	
+}
+/**
+ * Data una lista di caracter con al suo interno valori int, essi vengono convertiti da int->a char in codice ascii,
+ * e in fine messi in una lista di String poi stampati 
+ * 
+ */
+public void ex28() {
+ List<Character> c =   IntStream.rangeClosed('a', 'z').mapToObj(x->(char)x).toList();
+ 
+ List<String> d =  new ArrayList<String>();
+ 
+  Stream.iterate(0,x->x+1).limit(c.size()).forEach(x->d.add(x.toString()+c.get(x)));
+ 
+ System.out.println(d);
+
+}
+/**
+ * Dati due liste una di caracter e una di Integher, con valori randomici,
+ *  viene creata una terza lista contenente i valori character in posizione randomica
+ */
+public void ex29() {
+	
+	IntStream a = new Random().ints(0,25).limit(10);
+	
+	List<Integer> number = a.boxed().collect(Collectors.toList());
+	
+	List<Character> b =  IntStream.rangeClosed('a', 'z').mapToObj(x->(char)x).collect(Collectors.toList());
+
+	List<Character> c = new ArrayList<Character>();
+	
+	IntStream.range(0, 10).boxed().forEach(x->c.add(b.get(number.get(x))));	
+
+	System.out.println(c);
+}
+/**
+ * prese due liste una di valori randomici associati con un IntStream e uno con caratteri minuscoli dalla a alla z
+ * atraverso una stream vengono inseriti all interno di una map 
+ */
+public void ex30() {
+
+	IntStream a = new Random().ints(0,25).limit(15);
+	
+	List<Integer> number = a.boxed().collect(Collectors.toList());
+	
+	List<Character> b =  IntStream.rangeClosed('a', 'z').mapToObj(x->(char)x).collect(Collectors.toList());
+
+	Map<Character, Integer> map = new HashMap<>();
+	
+	IntStream.range(0, number.size()).forEach(x->map.put(b.get(number.get(x)),number.get(x)));
+	
+ System.out.print(map);
+	
+}
+/*
+ * Atraverso un DoubleStream vengono generati randomicamente valori double
+ * questi sono limitati a 20 valori poi stampati da una stream print
+ */
+public void ex31() {
+	
+	DoubleStream a = new Random().doubles().limit(20);
+	a.boxed().forEach(x->System.out.println(x));
+}
+/*
+ * 
+ */
+public void ex32() {
+	IntStream a = new Random().ints(0,50).limit(20);
+	
+	List<Integer> c = a.boxed().collect(Collectors.toList());
+	
+     Integer b = c.stream().reduce((x,y)->x+y).orElse(null);
+	
+   System.out.println(b);
+   System.out.print(c);
+  
+   
+}
+}
