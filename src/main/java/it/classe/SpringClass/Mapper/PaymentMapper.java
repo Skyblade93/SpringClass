@@ -6,7 +6,7 @@ import org.modelmapper.ModelMapper;
 
 public class PaymentMapper extends AbstractConverter<Payment, PaymentDto> {
 
-    ModelMapper mapper = new ModelMapper();
+    final private ModelMapper mapper = new ModelMapper();
 
     @Override
     public Payment toEntity(PaymentDto dto) {
