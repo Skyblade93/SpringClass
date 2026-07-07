@@ -30,4 +30,8 @@ public class Payment {
 
     private LocalDateTime processedAt;
 
+    private Integer payerId;
+
+    private Integer payeeId;
+
 }
