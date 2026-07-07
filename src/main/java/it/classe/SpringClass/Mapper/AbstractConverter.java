@@ -3,7 +3,7 @@ package it.classe.SpringClass.Mapper;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractConverter<Entity,DTO> implements Converter<Entity,DTO> {
+public abstract class AbstractConverter<Entity,DTO> implements it.classe.SpringClass.Mapper.Converter<Entity,DTO> {
 
     public List<Entity> toEntityList(Iterable<DTO> listDTO) {
         List<Entity> list = new ArrayList<Entity>();
