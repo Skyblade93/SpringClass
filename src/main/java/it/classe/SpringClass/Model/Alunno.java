@@ -25,6 +25,13 @@ public class Alunno {
     private Integer voto;
     @Enumerated(EnumType.STRING)
     private Scuola scuola;
+
+
+    //Alunno e auto
+    @OneToMany(mappedBy = "alunno")
+    private List<Auto> autos;
+
+
 /*
 
     @OneToOne

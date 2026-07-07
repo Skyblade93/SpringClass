@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class AlunnoDTO {
+public class AlunnoDto {
 
     private Long id;
     private String nome;
