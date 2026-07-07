@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 
-@Table(name = "ordine", schema = "ordine")
+@Table(name = "ordine", schema = "class")
 public class Ordine {
 
     @Id

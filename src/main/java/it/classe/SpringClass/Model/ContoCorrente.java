@@ -10,7 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name="ContoCorrente" ,schema="asset")
+@Entity
+@Table(name="ContoCorrente" ,schema="class")
 public class ContoCorrente {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)

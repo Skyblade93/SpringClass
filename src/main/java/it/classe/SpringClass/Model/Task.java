@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -13,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 
-@Table(name = "task", schema = "task")
+@Table(name = "task", schema = "class")
 public class Task {
 
     @Id
@@ -23,6 +26,24 @@ public class Task {
     private String taskName;
     private String description;
     private boolean completed;
+/*
+    @OneToMany
+    @JoinColumn(name="task_id")
+    private List<Alunno> alunnos;
+
+    @ManyToOne
+    @JoinColumn(name = "id_alunno")
+    private Alunno alunno;
+      */
+
+    @ManyToMany
+    @JoinTable(
+            name = "task_alunno",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "alunno_id")
+    )
+    private List<Alunno> alunni = new ArrayList<>();
+
 
 
 }
