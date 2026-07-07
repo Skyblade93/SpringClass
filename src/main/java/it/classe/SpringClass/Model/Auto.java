@@ -29,4 +29,11 @@ public class Auto {
     @OneToOne
     private Users user;
 
+
+
+    //Alunno e auto
+    @ManyToOne
+    @JoinColumn(name = "alunno_id")
+    private Alunno alunno;
+
 }
