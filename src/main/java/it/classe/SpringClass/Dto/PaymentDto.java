@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class PaymentDto {
-    private Integer id;
     private PaymentStatus status;
     private PaymentMethod paymentMethod;
     private BigDecimal amount;
