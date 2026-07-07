@@ -6,6 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -24,6 +29,10 @@ public class Users {
     private String password;
     private String email;
 
+    @ManyToMany(mappedBy = "users")
+    private List<Cards> cards;
 
+    @OneToMany(mappedBy = "Users")
+    private List<Auto> auto_possedute = new ArrayList<>();
 
 }
