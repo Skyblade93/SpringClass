@@ -24,4 +24,8 @@ public class Auto {
     private String marca;
     private String modello;
     private String colore;
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private Users user;
 }
