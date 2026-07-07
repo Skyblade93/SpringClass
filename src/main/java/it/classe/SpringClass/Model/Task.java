@@ -26,14 +26,6 @@ public class Task {
     private String taskName;
     private String description;
     private boolean completed;
-/*
-    @OneToMany
-    @JoinColumn(name="task_id")
-    private List<Alunno> alunnos;
-
-    @ManyToOne
-    @JoinColumn(name = "id_alunno")
-    private Alunno alunno;
 
 
     @ManyToMany
@@ -45,6 +37,6 @@ public class Task {
     )
     private List<Alunno> alunno;
 
- */
+
 
 }

@@ -16,7 +16,7 @@ public class UsersDto {
     private String password;
     private String email;
     private List<CardsDto> cards;
-   // private List<AutoDto> auto_possedute ;
+    //private List<AutoDto> auto_possedute ;
     private List<PaymentDto> sentPayments ;
     private List<PaymentDto> receivedPayments ;
 }
