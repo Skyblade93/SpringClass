@@ -32,7 +32,7 @@ public class Users {
     @ManyToMany(mappedBy = "users")
     private List<Cards> cards;
 
-    @OneToMany(mappedBy = "Users")
+    @OneToMany(mappedBy = "user")
     private List<Auto> auto_possedute = new ArrayList<>();
 
     @OneToMany(mappedBy = "payer")
