@@ -1,4 +1,4 @@
-package it.classe.SpringClass;
+package it.run;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
