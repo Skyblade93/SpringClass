@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -24,6 +26,8 @@ public class Users {
     private String password;
     private String email;
 
+    @ManyToMany(mappedBy = "users")
+    private List<Cards> cards;
 
 
 }
