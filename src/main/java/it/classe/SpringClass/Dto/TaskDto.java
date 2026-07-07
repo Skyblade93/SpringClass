@@ -17,6 +17,6 @@ public class TaskDto {
     private String taskName;
     private String description;
     private boolean completed;
-    private List<Alunno> alunni;
+    private List<Alunno> alunno;
 
 }
