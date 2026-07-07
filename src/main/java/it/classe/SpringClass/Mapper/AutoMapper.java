@@ -2,25 +2,20 @@ package it.classe.SpringClass.Mapper;
 
 import it.classe.SpringClass.Dto.AutoDto;
 import it.classe.SpringClass.Model.Auto;
+import org.hibernate.boot.internal.Abstract;
+import org.modelmapper.ModelMapper;
 
-public class AutoMapper {
-    public static AutoDto toDto(Auto entity) {
-        AutoDto dto = new AutoDto();
-        dto.setId(entity.getId());
-        dto.setAnno(entity.getAnno());
-        dto.setMarca(entity.getMarca());
-        dto.setModello(entity.getModello());
-        dto.setColore(entity.getColore());
-        return dto;
+public class AutoMapper extends AbstractConverter<Auto,AutoDto>{
+
+final private ModelMapper mapper=new ModelMapper();
+    @Override
+    public Auto toEntity(AutoDto dto) {
+        return mapper.map(dto,Auto.class);
     }
-        public static Auto toEntity(AutoDto dto) {
-            Auto entity = new Auto();
-            entity.setId(dto.getId());
-            entity.setAnno(dto.getAnno());
-            entity.setMarca(dto.getMarca());
-            entity.setModello(dto.getModello());
-            entity.setColore(dto.getColore());
-            return entity;
 
+    @Override
+    public AutoDto toDTO(Auto entity) {
+        return mapper.map(entity,AutoDto.class);
     }
 }
+
