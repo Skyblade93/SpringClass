@@ -1,10 +1,12 @@
-package it.model;
+package it.classe.SpringClass.Model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -13,17 +15,18 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
-@Table(name = "users", schema = "users")
-public class Users {
+@Table(name = "ordine", schema = "ordine")
+public class Ordine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String username;
-    private String password;
-    private String email;
-
+    private String prodotti;
+    private LocalDateTime dataCreazione;
+    private double importo;
+    private int quantita;
 
 
 }
+
