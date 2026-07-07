@@ -24,4 +24,4 @@ public class CardsMapper extends AbstractConverter<Cards, CardsDto> {
         return mapper.map(entity, CardsDto.class);
     }
 }
-}
+
