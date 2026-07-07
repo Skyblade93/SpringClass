@@ -6,6 +6,7 @@ import it.classe.SpringClass.Model.Payment;
 public class PaymentMapper {
     public static PaymentDto toDto(Payment entity){
         PaymentDto dto = new PaymentDto();
+        dto.setId(entity.getId());
         dto.setStatus(entity.getStatus());
         dto.setPaymentMethod(entity.getPaymentMethod());
         dto.setAmount(entity.getAmount());
@@ -18,6 +19,7 @@ public class PaymentMapper {
 
     public static Payment toEntity(PaymentDto dto){
         Payment entity = new Payment();
+        entity.setId(dto.getId());
         entity.setStatus(dto.getStatus());
         entity.setPaymentMethod(entity.getPaymentMethod());
         entity.setAmount(dto.getAmount());

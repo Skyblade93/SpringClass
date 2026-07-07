@@ -1,6 +1,7 @@
 package it.classe.SpringClass.Mapper;
 
 import it.classe.SpringClass.Dto.AutoDto;
+import it.classe.SpringClass.Model.Auto;
 
 public class AutoMapper {
     public static AutoDto toDto(Auto entity) {
