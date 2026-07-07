@@ -20,6 +20,6 @@ public class CardsDto {
     private String cartType;
     private int amount;
     private int availableAmount;
-    private List<Users> users;
-    private ContoCorrente contoCorrente;
+    private List<UsersDto> users;
+    private ContoCorrenteDto contoCorrente;
 }
