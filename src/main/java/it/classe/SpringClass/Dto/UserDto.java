@@ -3,7 +3,6 @@ package it.classe.SpringClass.Dto;
 import it.classe.SpringClass.Model.Auto;
 import it.classe.SpringClass.Model.Cards;
 import it.classe.SpringClass.Model.Payment;
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
