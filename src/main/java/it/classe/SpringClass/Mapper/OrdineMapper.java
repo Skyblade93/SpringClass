@@ -2,31 +2,22 @@ package it.classe.SpringClass.Mapper;
 
 import it.classe.SpringClass.Dto.OrdineDto;
 import it.classe.SpringClass.Model.Ordine;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
-public class OrdineMapper {
+@Component
+public class OrdineMapper  extends AbstractConverter<Ordine, OrdineDto> {
 
-    public static OrdineDto toDto(Ordine entity) {
-        OrdineDto dto = new OrdineDto();
-        dto.setId(entity.getId());
-        dto.setProdotti(entity.getProdotti());
-        dto.setDataCreazione(entity.getDataCreazione());
-        dto.setImporto(entity.getImporto());
-        dto.setQuantita(entity.getQuantita());
-        dto.setUsers(UsersMapper.toDto(entity.getUsers()));
+    final private ModelMapper mapper = new ModelMapper();
 
+    @Override
+    public OrdineDto toDTO(Ordine entity) { return mapper.map(entity, OrdineDto.class);}
 
-        return dto;
-    }
+    @Override
+    public Ordine toEntity(OrdineDto dto) { return mapper.map(dto, Ordine.class);}
 
-    public static Ordine toEntity(OrdineDto dto) {
-        Ordine entity = new Ordine();
-        entity.setId(dto.getId());
-        entity.setProdotti(dto.getProdotti());
-        entity.setDataCreazione(dto.getDataCreazione());
-        entity.setImporto(dto.getImporto());
-        entity.setQuantita(dto.getQuantita());
-        entity.setUsers(UsersMapper.toEntity(dto.getUsers()));
-
-        return entity;
-    }
 }
+
+
+
+
