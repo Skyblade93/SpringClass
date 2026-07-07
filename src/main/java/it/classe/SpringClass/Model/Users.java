@@ -35,6 +35,9 @@ public class Users {
     @OneToMany(mappedBy = "Users")
     private List<Auto> auto_possedute = new ArrayList<>();
 
-    @OneToMany(mappedBy = "users")
-    private List<Payment> payments = new ArrayList<>();
+    @OneToMany(mappedBy = "payer")
+    private List<Payment> sentPayments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "payee")
+    private List<Payment> receivedPayments = new ArrayList<>();
 }
