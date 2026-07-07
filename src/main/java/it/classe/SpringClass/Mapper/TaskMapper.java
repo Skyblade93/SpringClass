@@ -20,5 +20,4 @@ public class TaskMapper extends AbstractConverter<Task,TaskDto>{
     }
 
 
-
 }
