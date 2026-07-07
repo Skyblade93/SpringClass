@@ -1,4 +1,4 @@
-package it.model;
+package it.classe.SpringClass.Model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
