@@ -34,16 +34,17 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "id_alunno")
     private Alunno alunno;
-      */
+
 
     @ManyToMany
     @JoinTable(
             name = "task_alunno",
+            schema = "class",
             joinColumns = @JoinColumn(name = "task_id"),
             inverseJoinColumns = @JoinColumn(name = "alunno_id")
     )
-    private List<Alunno> alunni = new ArrayList<>();
+    private List<Alunno> alunno;
 
-
+ */
 
 }

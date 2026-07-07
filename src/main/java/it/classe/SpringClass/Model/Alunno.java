@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,8 +25,14 @@ public class Alunno {
     private Integer voto;
     @Enumerated(EnumType.STRING)
     private Scuola scuola;
+/*
+
+    @OneToOne
+    private Task tas;
+
+    @ManyToMany(mappedBy = "alunno")
+    private List<Task> task;
 
 
-    @ManyToMany(mappedBy = "alunni")
-    private List<Task> task =  new ArrayList<>();
+ */
 }
