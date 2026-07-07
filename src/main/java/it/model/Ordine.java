@@ -1,4 +1,4 @@
-package it.classe.SpringClass.Model;
+package it.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,8 +24,8 @@ public class Ordine {
 
     private String prodotti;
     private LocalDateTime dataCreazione;
-    private int importo;
-    private String stato;
+    private double importo;
+    private int quantita;
 
 
 }
