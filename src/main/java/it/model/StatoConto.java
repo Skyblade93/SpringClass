@@ -1,4 +1,4 @@
-package it.enu;
+package it.model;
 
 public enum StatoConto {
     ATTIVO,
