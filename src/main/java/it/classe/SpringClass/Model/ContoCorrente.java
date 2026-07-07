@@ -37,6 +37,6 @@ public class ContoCorrente {
 
     @OneToMany
     @JoinColumn(name="idConto")
-    private List<Cards>cartds;
+    private List<Cards>cards;
 
 }

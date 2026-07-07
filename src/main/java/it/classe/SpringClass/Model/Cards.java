@@ -34,4 +34,7 @@ public class Cards {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private List<Users> users;
+
+    @OneToOne
+    private ContoCorrente contoCorrente;
 }
