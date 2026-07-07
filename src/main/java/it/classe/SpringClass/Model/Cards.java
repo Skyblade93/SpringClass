@@ -24,4 +24,6 @@ public class Cards {
     private int amount;
     private int availableAmount;
 
+    @OneToOne
+    private ContoCorrente conto;
 }

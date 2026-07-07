@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -32,5 +34,9 @@ public class ContoCorrente {
 
     @Column(name = "ccv")
     private String ccv;
+
+    @OneToMany
+    @JoinColumn(name="idConto")
+    private List<Cards>cartds;
 
 }
