@@ -28,4 +28,5 @@ public class Auto {
     @ManyToOne
     @JoinColumn(name="user_id")
     private Users user;
+
 }
