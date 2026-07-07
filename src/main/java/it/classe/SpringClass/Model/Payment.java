@@ -29,8 +29,11 @@ public class Payment {
 
     private LocalDateTime processedAt;
 
-    private Integer payerId;
+    @ManyToOne
+    @JoinColumn(name="payer")
+    private Users payer;
 
-    private Integer payeeId;
-
+    @ManyToOne
+    @JoinColumn(name="payee")
+    private Users payee;
 }

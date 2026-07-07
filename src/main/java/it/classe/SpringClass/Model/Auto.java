@@ -28,4 +28,5 @@ public class Auto {
 
     @OneToOne
     private Users user;
+
 }
