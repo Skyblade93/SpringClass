@@ -29,8 +29,6 @@ public class Payment {
 
     private LocalDateTime processedAt;
 
-    private Integer payeeId;
-
     @ManyToOne
     @JoinColumn(name="payer")
     private Users payer;

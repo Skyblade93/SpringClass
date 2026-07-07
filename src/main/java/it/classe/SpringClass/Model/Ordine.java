@@ -27,6 +27,10 @@ public class Ordine {
     private double importo;
     private int quantita;
 
+    @ManyToOne
+    @JoinColumn(name = "id_users")
+    private Users users;
+
 
 }
 

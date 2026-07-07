@@ -25,8 +25,8 @@ public class Auto {
     private String modello;
     private String colore;
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
+
+    @OneToOne
     private Users user;
 
 }
