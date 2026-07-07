@@ -4,50 +4,25 @@ import it.classe.SpringClass.Dto.AlunnoDto;
 import it.classe.SpringClass.Dto.UsersDto;
 import it.classe.SpringClass.Model.Alunno;
 import it.classe.SpringClass.Model.Users;
+import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlunniMapper {
+public class AlunniMapper extends AbstractConverter<Alunno, AlunnoDto>{
 
-    public static AlunnoDto toDto (Alunno alunno) {
-        AlunnoDto alunnoDto = new AlunnoDto();
-        alunnoDto.setId(alunno.getId());
-        alunnoDto.setNome(alunno.getNome());
-        alunnoDto.setCognome(alunno.getCognome());
-        alunnoDto.setVoto(alunno.getVoto());
-        alunnoDto.setScuola(alunno.getScuola());
-        alunnoDto.setAutos(AutoMapper.toDtoList(alunno.getAutos()));
-        alunnoDto.setTask(TaskMapper.toDtoList(alunno.getTask()));
 
-        return alunnoDto;
+    final private ModelMapper mapper = new ModelMapper();
+
+    @Override
+    public Alunno toEntity(AlunnoDto Dto) {
+        return mapper.map(Dto, Alunno.class); //faccio associazione, inserisco cosa deve essere convertito.
+        //quindi converto il dto e poi a cosa lo devo convertire, quindi alunno.class. fatta conversione
     }
 
-    public static Alunno toEntity (AlunnoDto alunnoDto) {
-        Alunno entity = new  Alunno();
-        entity.setId(alunnoDto.getId());
-        entity.setNome(alunnoDto.getNome());
-        entity.setCognome(alunnoDto.getCognome());
-        entity.setVoto(alunnoDto.getVoto());
-        entity.setScuola(alunnoDto.getScuola());
-        entity.setAutos(AutoMapper.toEntityList(alunnoDto.getAutos()));
-        entity.setTask(TaskMapper.toEntityList(alunnoDto.getTask()));
-        return entity;
-
-    }
-    public static List<Alunno> toEntityList(List<AlunnoDto> dtos) {
-        List<Alunno> list = new ArrayList<>();
-        for (AlunnoDto dto : dtos) {
-            list.add(toEntity(dto));
-        }
-        return list;
-    }
-
-    public static List<AlunnoDto> toDtoList(List<Alunno> entity) {
-        List<AlunnoDto> listdto = new ArrayList<>();
-        for (Alunno dto : entity) {
-            listdto.add(toDto(dto));
-        }
-        return listdto;
+    @Override
+    public AlunnoDto toDTO(Alunno entity) {
+        return mapper.map(entity, AlunnoDto.class);
+        //faccio la stessa cosa di sopra, ma non L'ENTITY MA IL DTO
     }
 }
