@@ -30,8 +30,7 @@ public class Users {
     private String email;
 
 
-
-    @ManyToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "users")
     private List<Cards> cards;
 
     @OneToMany(mappedBy = "user")

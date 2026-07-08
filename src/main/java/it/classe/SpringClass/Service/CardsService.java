@@ -23,8 +23,8 @@ public class CardsService extends AbstractService<Cards, CardsDto>{
         this.cardsRepository = cardsRepository;
     }
 
-    public CardsDto findByTelefono(Cards cards){
-        return cardsMapper.toDTO(cardsRepository.findByTelefono(cards.getTelefono()));
+    public CardsDto findByTelefono(String telefono){
+        return cardsMapper.toDTO(cardsRepository.findByTelefono(telefono));
     }
 
     public List<CardsDto> findByCartType(String cartType){

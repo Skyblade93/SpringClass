@@ -26,14 +26,9 @@ public class Cards {
     private int amount;
     private int availableAmount;
 
-    @ManyToMany
-    @JoinTable(
-            name = "users_cards",
-            schema = "class",
-            joinColumns = @JoinColumn(name = "card_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private List<Users> users;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users users;
 
     @OneToOne
     private ContoCorrente contoCorrente;
