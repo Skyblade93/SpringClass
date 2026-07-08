@@ -5,11 +5,13 @@ import it.classe.SpringClass.Model.PaymentMethod;
 import it.classe.SpringClass.Model.PaymentStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Repository
 public interface PaymentRepository extends JpaRepository<Payment, Integer> {
     // JPA
     List<Payment> findByPayerId(Integer payerId);

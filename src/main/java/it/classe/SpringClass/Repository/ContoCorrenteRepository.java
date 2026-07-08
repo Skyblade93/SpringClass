@@ -7,23 +7,24 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface ContoCorrenteRepository extends JpaRepository<Integer, ContoCorrente> {
-
-    ContoCorrente findById(Integer id);
-    ContoCorrente findByName(String nome);
+public interface ContoCorrenteRepository extends JpaRepository<ContoCorrente, Integer> {
+/*
+  //  ContoCorrente findById(Integer id);
+    ContoCorrente findByNome(String nome);
 
 //
-    @Query("SELECT c FROM contoCorrente c where c.email=?1")
-    ContoCorrente findByEmail(String email);
+  //  @Query("SELECT c FROM ContoCorrente c where c.email=?1")
+  //  ContoCorrente findByEmail(String email);
 
     @Query("SELECT c FROM contoCorrente c where c.cognome=?1")
     ContoCorrente findByCognome(String cognome);
 //
 
-        @Query("select idconto  from contocorrente c where c.ID=?1")
-        List<Cards> findCardByIntId(Integer id );
+      //  @Query("select idconto  from contocorrente c where c.ID=?1")
+      //  List<Cards> findCardByIntId(Integer id );
 
     //NATIVE
 
@@ -33,5 +34,5 @@ public interface ContoCorrenteRepository extends JpaRepository<Integer, ContoCor
     @Query(value = "SELECT * FROM CONTOCORRENTE WHERE nome= ?1" ,nativeQuery = true)
     ContoCorrente findByNameNative(String nome);
 
-
+*/
 }

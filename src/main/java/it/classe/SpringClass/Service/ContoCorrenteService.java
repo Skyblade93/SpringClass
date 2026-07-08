@@ -28,6 +28,8 @@ public class ContoCorrenteService extends AbstractService<ContoCorrente ,ContoCo
             this.contoCorrenteRepository=contoCorrenteRepository;
     }
 
+    /*
+
         public ContoCorrenteDto findByIdConto(Integer idConto){
             return contoCorrenteMapper.toDTO(contoCorrenteRepository.findById(idConto));
         }
@@ -46,5 +48,5 @@ public class ContoCorrenteService extends AbstractService<ContoCorrente ,ContoCo
             }
 
 
-
+*/
 }

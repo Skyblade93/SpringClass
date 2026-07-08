@@ -16,7 +16,7 @@ public class CardsService extends AbstractService<Cards, CardsDto>{
     private final CardsMapper cardsMapper;
     private final CardsRepository cardsRepository;
 
-    protected CardsService(JpaRepository<Cards, Integer> repository,
+    public CardsService(JpaRepository<Cards, Integer> repository,
                            Converter<Cards, CardsDto> converter, CardsMapper cardsMapper, CardsRepository cardsRepository) {
         super(repository, converter);
         this.cardsMapper = cardsMapper;

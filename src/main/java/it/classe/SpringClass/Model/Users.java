@@ -29,6 +29,8 @@ public class Users {
     private String password;
     private String email;
 
+
+
     @ManyToMany(mappedBy = "users")
     private List<Cards> cards;
 

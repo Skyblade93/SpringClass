@@ -1,0 +1,41 @@
+package it.classe.SpringClass.Controller;
+
+import it.classe.SpringClass.Service.ServiceDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+public abstract class AbstractController <DTO>{
+
+    @Autowired
+    private ServiceDto<DTO> service;
+
+    @GetMapping("/getall")
+    public Iterable<DTO> getAll(){
+        return service.getAll();
+    }
+
+    @DeleteMapping("/delete")
+    public void delete(@RequestParam("id") Integer id) {
+        service.delete(id);
+    }
+
+
+    @PutMapping("/update")
+    public DTO update(@RequestBody DTO dto){
+        service.update(dto);
+        return dto;
+    }
+
+    @PostMapping("/insert")
+    public DTO insert (@RequestBody DTO dto) {
+        service.insert(dto);
+        return dto;
+    }
+
+    @GetMapping("/read")
+    public DTO read(@RequestParam("id") Integer id) {
+        return service.read(id);
+    }
+
+}

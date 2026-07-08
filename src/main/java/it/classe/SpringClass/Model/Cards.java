@@ -18,7 +18,7 @@ public class Cards {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String telefono;
     private String cardNumber;

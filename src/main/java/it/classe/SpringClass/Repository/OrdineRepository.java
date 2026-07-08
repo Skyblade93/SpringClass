@@ -4,10 +4,12 @@ import it.classe.SpringClass.Model.Ordine;
 import it.classe.SpringClass.Model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Repository
 public interface OrdineRepository extends JpaRepository<Ordine, Integer> {
 
     Ordine findByDataCreazione(LocalDateTime dataCreazione);

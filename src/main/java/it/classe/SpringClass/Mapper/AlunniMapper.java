@@ -5,10 +5,12 @@ import it.classe.SpringClass.Dto.UsersDto;
 import it.classe.SpringClass.Model.Alunno;
 import it.classe.SpringClass.Model.Users;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class AlunniMapper extends AbstractConverter<Alunno, AlunnoDto>{
 
 

@@ -4,7 +4,9 @@ import it.classe.SpringClass.Dto.AutoDto;
 import it.classe.SpringClass.Model.Auto;
 import org.hibernate.boot.internal.Abstract;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AutoMapper extends AbstractConverter<Auto,AutoDto>{
 
 final private ModelMapper mapper=new ModelMapper();

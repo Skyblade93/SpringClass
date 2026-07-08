@@ -6,10 +6,12 @@ import it.classe.SpringClass.Dto.UsersDto;
 import it.classe.SpringClass.Model.Cards;
 import it.classe.SpringClass.Model.Users;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class CardsMapper extends AbstractConverter<Cards, CardsDto> {
 
     final private ModelMapper mapper = new ModelMapper();

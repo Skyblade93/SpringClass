@@ -14,7 +14,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class CardsDto {
 
-    private Long id;
+    private Integer id;
     private String telefono;
     private String cardNumber;
     private String cartType;

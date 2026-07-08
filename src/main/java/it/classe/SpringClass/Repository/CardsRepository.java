@@ -3,13 +3,15 @@ package it.classe.SpringClass.Repository;
 import it.classe.SpringClass.Model.Cards;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface CardsRepository extends JpaRepository<Cards, Long> {
+@Repository
+public interface CardsRepository extends JpaRepository<Cards, Integer> {
 
-    Optional<Cards> findById(Long id);
+   // Optional<Cards> findById(Integer id);
     Cards findByTelefono(String telefono);
     List<Cards> findByCartType(String cartType);
     Cards findByCardNumber(String cardNumber);

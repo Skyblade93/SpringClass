@@ -1,6 +1,9 @@
 package it.classe.SpringClass.Mapper;
 
+import org.springframework.stereotype.Component;
+
 import java.util.List;
+
 
 public interface Converter<Entity, DTO> {
 

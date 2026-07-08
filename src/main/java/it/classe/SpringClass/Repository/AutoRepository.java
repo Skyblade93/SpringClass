@@ -4,7 +4,9 @@ import it.classe.SpringClass.Model.Auto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import it.classe.SpringClass.Model.Users;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface AutoRepository extends JpaRepository<Auto,Integer>{
     Auto findByModello(String modello);
     Auto findByColore(String colore);
