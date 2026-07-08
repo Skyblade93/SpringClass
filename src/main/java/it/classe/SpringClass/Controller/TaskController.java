@@ -30,11 +30,14 @@ public class TaskController extends AbstractController<TaskDto>{
         return taskService.findByStatus(true);
     }
 
+    @GetMapping("/urgenti")
+    public List<TaskDto> getTaskUrgenti() {
+        return taskService.findTaskUrgenti();
+    }
+
     @GetMapping("/da-completare")
     public List<TaskDto> getTaskDaCompletare(){
         return taskService.findByStatus(false);
     }
-
-
 
 }

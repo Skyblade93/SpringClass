@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,10 @@ public class Task {
     private String taskName;
     private String description;
     private boolean completed;
+
+    private LocalDate dataScadenza;
+    @Enumerated(EnumType.STRING)
+    private Priorita priorita;
 
 
     @ManyToMany

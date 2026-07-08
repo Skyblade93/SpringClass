@@ -41,6 +41,10 @@ public class TaskService extends AbstractService<Task,TaskDto>{
     }
 
 
+    public List<TaskDto> findTaskUrgenti() {
+        return taskMapper.toDTOList(taskRepository.findByCompletedFalseOrderByDataScadenzaAsc());
+    }
+
     public List<TaskDto> findByStatus(boolean status){
         return taskMapper.toDTOList(taskRepository.findByCompleted(status));
     }

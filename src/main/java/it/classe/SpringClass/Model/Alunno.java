@@ -31,10 +31,6 @@ public class Alunno {
     @OneToMany(mappedBy = "alunno")
     private List<Auto> autos;
 
-/*
-    @ManyToMany(mappedBy = "alunno")
-    private List<Task> task;
 
-*/
 
 }

@@ -15,11 +15,13 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
     //List<Task> findByCompletedFalse();
     //List<Task> findByCompletedTrue();
     List<Task> findByCompleted(boolean status);
+    List<Task> findByCompletedFalseOrderByDataScadenzaAsc(); // task con le scadenze più vicine
 
     @Query("SELECT t FROM Task t WHERE t.taskName = ?1 AND t.completed = ?2")
     List<Task> trovaPerNomeEStato(String nome, boolean stato);
     @Query("SELECT t FROM Task t WHERE t.description LIKE %?1%")
     List<Task> cercaPerDescrizioneJPQL(String descrizione);
+
 
     @Query(value="SELECT * FROM task WHERE completed = true", nativeQuery = true)
     List<Task> trovaTaskCompletate();

@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -126,6 +127,9 @@ public class DataInitializer implements CommandLineRunner {
             t.setTaskName("Task" + i);
             t.setDescription("Desc " + i);
             t.setCompleted(i % 2 == 0);
+            Priorita[] prioritaArray = Priorita.values();
+            t.setPriorita(prioritaArray[i % prioritaArray.length]);
+            t.setDataScadenza(LocalDate.now().plusDays(i));
             // assegna alcuni alunni alla task (1-2)
             List<Alunno> assigned = new ArrayList<>();
             assigned.add(alunni.get((i - 1) % alunni.size()));
