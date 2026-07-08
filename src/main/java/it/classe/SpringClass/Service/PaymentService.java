@@ -61,4 +61,24 @@ public class PaymentService extends AbstractService<Payment, PaymentDto> {
     public BigDecimal getTotalReceivedByUser(Integer userId){
         return paymentRepository.getTotalReceivedByUser(userId);
     }
+
+    public PaymentDto patch(
+            Integer id,
+            PaymentStatus status,
+            BigDecimal amount){
+
+        Payment payment = paymentRepository.findById(id)
+                .orElseThrow();
+
+        if(status != null){
+            payment.setStatus(status);
+        }
+
+        if(amount != null){
+            payment.setAmount(amount);
+        }
+
+        payment = paymentRepository.save(payment);
+        return paymentMapper.toDTO(payment);
+    }
 }

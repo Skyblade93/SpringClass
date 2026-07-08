@@ -7,18 +7,17 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Setter
 @Getter
-@ToString
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-public class PaymentDto {
-    private Integer id;
+public class PaymentPatchDto {
+
     private PaymentStatus status;
+
     private PaymentMethod paymentMethod;
+
     private BigDecimal amount;
+
     private LocalDateTime processedAt;
-    private Integer payerId;
-    private Integer payeeId;
 }

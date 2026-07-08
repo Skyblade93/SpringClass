@@ -1,6 +1,7 @@
 package it.classe.SpringClass.Controller;
 
 import it.classe.SpringClass.Dto.PaymentDto;
+import it.classe.SpringClass.Dto.PaymentPatchDto;
 import it.classe.SpringClass.Model.PaymentStatus;
 import it.classe.SpringClass.Service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,29 @@ public class PaymentController extends AbstractController<PaymentDto>{
             @PathVariable Integer userId){
 
         return paymentService.getTotalReceivedByUser(userId);
+    }
+
+    @PatchMapping("/{id}/status")
+    public PaymentDto updateStatus(
+            @PathVariable Integer id,
+            @RequestParam PaymentStatus status){
+
+        return paymentService.patch(
+                id,
+                status,
+                null
+        );
+    }
+
+    @PatchMapping("/{id}/amount")
+    public PaymentDto updateAmount(
+            @PathVariable Integer id,
+            @RequestParam BigDecimal amount){
+
+        return paymentService.patch(
+                id,
+                null,
+                amount
+        );
     }
 }
