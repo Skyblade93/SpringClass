@@ -23,11 +23,9 @@ public class Auto {
     private String modello;
     private String colore;
 
-
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name="auto_possedute")
     private Users user;
-
-
 
     //Alunno e auto
     @ManyToOne
