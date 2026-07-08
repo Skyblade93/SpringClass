@@ -10,6 +10,7 @@ import it.classe.SpringClass.Repository.OrdineRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,7 +26,7 @@ public class OrdineService extends AbstractService<Ordine, OrdineDto> {
 
     private final OrdineRepository ordineRepository;
 
-    //@Value("${spring.datasource.url}")
+    @Value("${spring.datasource.url}")
     private String databaseUrl;
 
     public OrdineService(JpaRepository<Ordine, Integer> repository, Converter<Ordine, OrdineDto> converter,
