@@ -68,9 +68,8 @@ public class DataInitializer implements CommandLineRunner {
             card.setAmount(1000 + i);
             card.setAvailableAmount(800 + i);
             card.setContoCorrente(conti.get(i - 1));
-            List<Users> cu = new ArrayList<>();
-            cu.add(users.get((i - 1) % users.size()));
-            if (i % 3 == 0) cu.add(users.get(i % users.size()));
+            Users cu = new Users();
+            if (i % 3 == 0) cu = users.get(i % users.size());
             card.setUsers(cu);
             em.persist(card);
             cards.add(card);
