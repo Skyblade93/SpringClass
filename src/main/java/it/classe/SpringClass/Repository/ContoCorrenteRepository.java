@@ -9,21 +9,21 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ContoCorrenteRepository extends JpaRepository<ContoCorrente, Integer> {
+public interface ContoCorrenteRepository extends JpaRepository<Integer, ContoCorrente> {
 
-   // ContoCorrente findById(Integer id);
-    ContoCorrente findByNome(String nome);
+    ContoCorrente findById(Integer id);
+    ContoCorrente findByName(String nome);
 
 //
-   // @Query("SELECT c FROM contoCorrente c where c.email=?1")
-   // ContoCorrente findByEmail(String email);
+    @Query("SELECT c FROM contoCorrente c where c.email=?1")
+    ContoCorrente findByEmail(String email);
 
-    //@Query("SELECT c FROM contoCorrente c where c.cognome=?1")
-    //ContoCorrente findByCognome(String cognome);
+    @Query("SELECT c FROM contoCorrente c where c.cognome=?1")
+    ContoCorrente findByCognome(String cognome);
 //
 
-    //    @Query("select idconto  from contocorrente c where c.ID=?1")
-    //    List<Cards> findCardByIntId(Integer id );
+        @Query("select idconto  from contocorrente c where c.ID=?1")
+        List<Cards> findCardByIntId(Integer id );
 
     //NATIVE
 

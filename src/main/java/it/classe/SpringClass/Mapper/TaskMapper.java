@@ -5,8 +5,9 @@ import it.classe.SpringClass.Dto.TaskDto;
 
 import it.classe.SpringClass.Model.Task;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class TaskMapper extends AbstractConverter<Task,TaskDto>{
 
     final private ModelMapper mapper = new ModelMapper();
@@ -18,6 +19,4 @@ public class TaskMapper extends AbstractConverter<Task,TaskDto>{
     public TaskDto toDTO(Task entity) {
         return mapper.map(entity,TaskDto.class);
     }
-
-
 }
