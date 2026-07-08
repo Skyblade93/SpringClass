@@ -23,7 +23,7 @@ public class Ordine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
+
 
     private Integer id;
 
@@ -34,6 +34,7 @@ public class Ordine {
 
     @ManyToOne
     @JoinColumn(name = "id_users")
+    @JsonIgnore
     private Users users;
 
 
