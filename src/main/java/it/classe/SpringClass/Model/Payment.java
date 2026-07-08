@@ -27,10 +27,6 @@ public class Payment {
 
     private BigDecimal amount;
 
-    private String username;
-
-    private String email;
-
     private LocalDateTime processedAt;
 
     @ManyToOne
