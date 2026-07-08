@@ -7,6 +7,7 @@ import it.classe.SpringClass.Model.ContoCorrente;
 import it.classe.SpringClass.Repository.ContoCorrenteRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,10 @@ public class ContoCorrenteService extends AbstractService<ContoCorrente ,ContoCo
 
     private  final ContoCorrenteRepository contoCorrenteRepository;
 
+    @Value("${spring.datasource.url}")
+    private String databaseUrl;
+
+
     public ContoCorrenteService(JpaRepository<ContoCorrente, Integer> repository, Converter<ContoCorrente, ContoCorrenteDto> converter,
                                 ContoCorrenteMapper contoCorrenteMapper,
                        ContoCorrenteRepository contoCorrenteRepository){
@@ -28,25 +33,26 @@ public class ContoCorrenteService extends AbstractService<ContoCorrente ,ContoCo
             this.contoCorrenteRepository=contoCorrenteRepository;
     }
 
-    /*
-
-        public ContoCorrenteDto findByIdConto(Integer idConto){
-            return contoCorrenteMapper.toDTO(contoCorrenteRepository.findById(idConto));
-        }
-
+/*
             public ContoCorrenteDto findByName(String nome){
         return contoCorrenteMapper.toDTO(contoCorrenteRepository.findByName(nome));
 
-            }
+            }*/
 
             public ContoCorrenteDto findByEmail(String email)
             {
                 return contoCorrenteMapper.toDTO(contoCorrenteRepository.findByEmail(email));
             }
+
             public ContoCorrenteDto findByCognome(String cognome){
-        return contoCorrenteMapper.toDTO(contoCorrenteRepository.findByEmail(cognome));
+        return contoCorrenteMapper.toDTO(contoCorrenteRepository.findByCognome(cognome));
             }
 
 
-*/
+    public String getDatabaseUrl() {
+        log.info(databaseUrl);
+        log.warn(databaseUrl);
+        log.error(databaseUrl);
+        return databaseUrl;
+    }
 }
