@@ -57,6 +57,23 @@ public class OrdineService extends AbstractService<Ordine, OrdineDto> {
 
     }
 
+    public List<OrdineDto> cercaProdotti(String prodotti){
+        return  ordineMapper.toDTOList(ordineRepository.cercaProdotti(prodotti));
+    }
+
+    public List<OrdineDto> ordiniDalPiuCostoso(){
+        return  ordineMapper.toDTOList(ordineRepository.ordiniDalPiuCostoso());
+
+    }
+
+    public List<OrdineDto> cercaPerQuantitaMaggiore(int quantita){
+        return  ordineMapper.toDTOList(ordineRepository.cercaPerQuantitaMaggiore(quantita));
+    }
+
+    public List<OrdineDto> ultimiOrdini(Integer idUsers){
+        return  ordineMapper.toDTOList(ordineRepository.ultimiOrdini(idUsers));
+    }
+
 
     public String getDatabaseUrl() {
         log.info(databaseUrl);
