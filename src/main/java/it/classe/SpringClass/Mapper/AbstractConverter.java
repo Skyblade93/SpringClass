@@ -29,6 +29,4 @@ public abstract class AbstractConverter<Entity,DTO> implements it.classe.SpringC
         return list;
     }
 
-
-
 }

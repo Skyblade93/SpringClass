@@ -1,6 +1,9 @@
 package it.classe.SpringClass.Dto;
 
+import it.classe.SpringClass.Model.Cards;
 import lombok.*;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -16,5 +19,6 @@ public class ContoCorrenteDto {
     private String cognome;
     private String email;
     private String ccv;
+    private List<Cards> cards;
 
 }
