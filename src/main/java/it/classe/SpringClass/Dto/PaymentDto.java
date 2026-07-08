@@ -18,6 +18,8 @@ public class PaymentDto {
     private PaymentStatus status;
     private PaymentMethod paymentMethod;
     private BigDecimal amount;
+    private String username;
+    private String email;
     private LocalDateTime processedAt;
     private UsersDto payer;
     private UsersDto payee;
