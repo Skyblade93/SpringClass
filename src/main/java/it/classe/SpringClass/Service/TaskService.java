@@ -32,10 +32,6 @@ public class TaskService extends AbstractService<Task,TaskDto>{
         this.taskRepository = taskRepository;
     }
 
-// ===================================================================
-    // METODI SPRING DATA JPA (Derived Queries)
-    // ===================================================================
-
     public List<TaskDto> findByTaskName(String taskName) {
         return taskMapper.toDTOList(taskRepository.findByTaskName(taskName));
     }
@@ -44,12 +40,9 @@ public class TaskService extends AbstractService<Task,TaskDto>{
         return taskMapper.toDTOList(taskRepository.findByTaskNameContaining(keyword));
     }
 
-    public List<TaskDto> findByCompletedFalse() {
-        return taskMapper.toDTOList(taskRepository.findByCompletedFalse());
-    }
 
-    public List<TaskDto> findByCompletedTrue() {
-        return taskMapper.toDTOList(taskRepository.findByCompletedTrue());
+    public List<TaskDto> findByStatus(boolean status){
+        return taskMapper.toDTOList(taskRepository.findByCompleted(status));
     }
 
     public List<TaskDto> trovaPerNomeEStato(String nome, boolean stato) {

@@ -12,8 +12,9 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
 
     List<Task> findByTaskName(String taskName);
     List<Task> findByTaskNameContaining(String keyword);
-    List<Task> findByCompletedFalse();
-    List<Task> findByCompletedTrue();
+    //List<Task> findByCompletedFalse();
+    //List<Task> findByCompletedTrue();
+    List<Task> findByCompleted(boolean status);
 
     @Query("SELECT t FROM Task t WHERE t.taskName = ?1 AND t.completed = ?2")
     List<Task> trovaPerNomeEStato(String nome, boolean stato);
