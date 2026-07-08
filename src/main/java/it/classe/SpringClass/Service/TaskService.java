@@ -32,9 +32,46 @@ public class TaskService extends AbstractService<Task,TaskDto>{
         this.taskRepository = taskRepository;
     }
 
-    public List<TaskDto> findByName(String nome){
-        return taskMapper.toDTOList(taskRepository.findByTaskName(nome));
+// ===================================================================
+    // METODI SPRING DATA JPA (Derived Queries)
+    // ===================================================================
+
+    public List<TaskDto> findByTaskName(String taskName) {
+        return taskMapper.toDTOList(taskRepository.findByTaskName(taskName));
     }
+
+    public List<TaskDto> findByTaskNameContaining(String keyword) {
+        return taskMapper.toDTOList(taskRepository.findByTaskNameContaining(keyword));
+    }
+
+    public List<TaskDto> findByCompletedFalse() {
+        return taskMapper.toDTOList(taskRepository.findByCompletedFalse());
+    }
+
+    public List<TaskDto> findByCompletedTrue() {
+        return taskMapper.toDTOList(taskRepository.findByCompletedTrue());
+    }
+
+    public List<TaskDto> trovaPerNomeEStato(String nome, boolean stato) {
+        return taskMapper.toDTOList(taskRepository.trovaPerNomeEStato(nome, stato));
+    }
+
+    public List<TaskDto> cercaPerDescrizioneJPQL(String descrizione) {
+        return taskMapper.toDTOList(taskRepository.cercaPerDescrizioneJPQL(descrizione));
+    }
+
+
+    public List<TaskDto> trovaTaskCompletate() {
+        return taskMapper.toDTOList(taskRepository.trovaTaskCompletate());
+    }
+
+    public List<TaskDto> trovaTaskNonCompletate() {
+        return taskMapper.toDTOList(taskRepository.trovaTaskNonCompletate());
+    }
+
+
+
+
 
     public String getDatabaseUrl() {
         log.info(databaseUrl);
