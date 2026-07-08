@@ -3,6 +3,7 @@ package it.classe.SpringClass.Controller;
 import it.classe.SpringClass.Dto.CardsDto;
 import it.classe.SpringClass.Service.CardsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,5 +40,12 @@ public class CardsController extends AbstractController<CardsDto> {
     @GetMapping("/available-amount")
     public List<CardsDto> getByAvailableAmount(@RequestParam("availableAmount") int availableAmount) {
         return cardsService.findByAvailableAmount(availableAmount);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CardsDto> updateTelefono(
+            @PathVariable(name = "id") Integer id,
+            @RequestParam("telefono") String telefono) throws Exception {
+        return ResponseEntity.ok(cardsService.changeTelefono(id, telefono));
     }
 }

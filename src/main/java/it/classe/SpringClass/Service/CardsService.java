@@ -42,4 +42,13 @@ public class CardsService extends AbstractService<Cards, CardsDto>{
     public List<CardsDto> findByAvailableAmount(int availableAmount){
         return cardsMapper.toDTOList(cardsRepository.findByAvailableAmount(availableAmount));
     }
+
+    public CardsDto changeTelefono(Integer id,String telefono) throws Exception {
+        Cards cards=cardsRepository.findById(id)
+                .orElseThrow(()->new Exception("Card non trovata con questo id"));
+        cards.setTelefono(telefono);
+        Cards saved = cardsRepository.save(cards);
+        return cardsMapper.toDTO(saved);
+
+    }
 }
