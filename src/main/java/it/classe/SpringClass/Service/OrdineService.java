@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class OrdineService extends AbstractService<Ordine, OrdineDto> {
 
-    private static final Logger log = LoggerFactory.getLogger(UsersService.class);
+    private static final Logger log = LoggerFactory.getLogger(OrdineService.class);
 
     private final OrdineMapper ordineMapper;
 
