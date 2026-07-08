@@ -4,42 +4,40 @@ import it.classe.SpringClass.Dto.PaymentDto;
 import it.classe.SpringClass.Model.PaymentStatus;
 import it.classe.SpringClass.Service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@RequestMapping("/payments")
 @RestController
 public class PaymentController extends AbstractController<PaymentDto>{
 
     @Autowired
     private PaymentService paymentService;
 
-    @GetMapping("/payments/payer/{payerId}")
+    @GetMapping("/payer/{payerId}")
     public List<PaymentDto> getPaymentsByPayer(
             @PathVariable Integer payerId){
 
         return paymentService.getPaymentsByPayer(payerId);
     }
 
-    @GetMapping("/payments/payee/{payeeId}")
+    @GetMapping("/payee/{payeeId}")
     public List<PaymentDto> getPaymentsByPayee(
             @PathVariable Integer payeeId){
 
         return paymentService.getPaymentsByPayee(payeeId);
     }
 
-    @GetMapping("/payments/username/{username}")
+    @GetMapping("/username/{username}")
     public List<PaymentDto> getPaymentsByUsername(
             @PathVariable String username){
 
         return paymentService.getPaymentsByUsername(username);
     }
 
-    @GetMapping("/payments/filter")
+    @GetMapping("/filter")
     public List<PaymentDto> getPaymentsByStatusAndMinAmount(
             @RequestParam PaymentStatus status,
             @RequestParam BigDecimal amount){
@@ -50,14 +48,14 @@ public class PaymentController extends AbstractController<PaymentDto>{
         );
     }
 
-    @GetMapping("/payments/spent/{userId}")
+    @GetMapping("/spent/{userId}")
     public BigDecimal getTotalSpentByUser(
             @PathVariable Integer userId){
 
         return paymentService.getTotalSpentByUser(userId);
     }
 
-    @GetMapping("/payments/received/{userId}")
+    @GetMapping("/received/{userId}")
     public BigDecimal getTotalReceivedByUser(
             @PathVariable Integer userId){
 
