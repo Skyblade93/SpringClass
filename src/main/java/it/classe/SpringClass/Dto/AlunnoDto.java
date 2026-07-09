@@ -18,7 +18,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class AlunnoDto {
 
-    private Long id;
+    private Integer id;
     private String nome;
     private String cognome;
     private Integer voto;

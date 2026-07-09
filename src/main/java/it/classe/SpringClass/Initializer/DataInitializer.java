@@ -115,8 +115,8 @@ public class DataInitializer implements CommandLineRunner {
 
         for (int i = 1; i <= 10; i++) {
             Payment p = new Payment();
-            p.setStatus(PaymentStatus.Successful);
-            p.setPaymentMethod(PaymentMethod.Visa);
+            p.setStatus(PaymentStatus.SUCCESSFUL);
+            p.setPaymentMethod(PaymentMethod.VISA);
             p.setAmount(BigDecimal.valueOf(100.0 + i));
             p.setProcessedAt(LocalDateTime.now());
             p.setPayer(users.get((i - 1) % users.size()));
