@@ -24,7 +24,7 @@ public class ContoCorrenteService extends AbstractService<ContoCorrente ,ContoCo
     private String databaseUrl;
 
 
-    public ContoCorrenteService(JpaRepository<ContoCorrente, Integer> repository, Converter<ContoCorrente, ContoCorrenteDto> converter,
+    public ContoCorrenteService(ContoCorrenteRepository repository, Converter<ContoCorrente, ContoCorrenteDto> converter,
                                 ContoCorrenteMapper contoCorrenteMapper,
                        ContoCorrenteRepository contoCorrenteRepository){
 
