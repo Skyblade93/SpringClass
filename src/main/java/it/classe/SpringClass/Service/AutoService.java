@@ -10,6 +10,7 @@ import it.classe.SpringClass.Repository.AutoRepository;
 import it.classe.SpringClass.Repository.UsersRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 @Service
@@ -64,7 +65,7 @@ public class AutoService extends AbstractService<Auto, AutoDto> {
     }
 
 
-    public String getDatabaseUrl() {
+    private String getDatabaseUrl() {
         log.info(databaseUrl);
         log.warn(databaseUrl);
         log.error(databaseUrl);
