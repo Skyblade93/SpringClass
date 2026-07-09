@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -34,6 +35,210 @@ public class OrdineServiceTest {
 
     @InjectMocks
     private OrdineService ordineService;
+
+
+    @Test
+    void insert_positive() {
+
+        OrdineDto dto = new OrdineDto(
+                1,
+                "Laptop",
+                LocalDateTime.now(),
+                1000,
+                1,
+                null
+        );
+
+
+        Ordine ordine = new Ordine(
+                1,
+                "Laptop",
+                dto.getDataCreazione(),
+                1000,
+                1,
+                null
+        );
+
+
+        when(ordineMapper.toEntity(dto))
+                .thenReturn(ordine);
+
+
+        when(ordineRepository.save(ordine))
+                .thenReturn(ordine);
+
+
+        when(ordineMapper.toDTO(ordine))
+                .thenReturn(dto);
+
+
+
+        OrdineDto result = ordineService.insert(dto);
+
+
+
+        assertNotNull(result);
+        assertEquals(dto, result);
+
+
+        verify(ordineMapper).toEntity(dto);
+        verify(ordineRepository).save(ordine);
+        verify(ordineMapper).toDTO(ordine);
+    }
+
+
+    @Test
+    void update_positive() {
+
+        OrdineDto dto = new OrdineDto(
+                1,
+                "PC",
+                LocalDateTime.now(),
+                2000,
+                1,
+                null
+        );
+
+
+        Ordine ordine = new Ordine(
+                1,
+                "PC",
+                dto.getDataCreazione(),
+                2000,
+                1,
+                null
+        );
+
+
+        when(ordineMapper.toEntity(dto))
+                .thenReturn(ordine);
+
+
+        when(ordineRepository.save(ordine))
+                .thenReturn(ordine);
+
+
+        when(ordineMapper.toDTO(ordine))
+                .thenReturn(dto);
+
+
+
+        OrdineDto result = ordineService.update(dto);
+
+
+
+        assertNotNull(result);
+        assertEquals(dto,result);
+
+
+        verify(ordineRepository)
+                .save(ordine);
+    }
+
+    @Test
+    void delete_positive(){
+
+        Integer id = 1;
+
+
+        doNothing()
+                .when(ordineRepository)
+                .deleteById(id);
+
+
+
+        ordineService.delete(id);
+
+
+
+        verify(ordineRepository)
+                .deleteById(id);
+    }
+
+    @Test
+    void read_positive(){
+
+        Ordine ordine = new Ordine(
+                1,
+                "Tablet",
+                LocalDateTime.now(),
+                500,
+                1,
+                null
+        );
+
+
+        OrdineDto dto = new OrdineDto(
+                1,
+                "Tablet",
+                ordine.getDataCreazione(),
+                500,
+                1,
+                null
+        );
+
+
+        when(ordineRepository.findById(1))
+                .thenReturn(Optional.of(ordine));
+
+
+        when(ordineMapper.toDTO(ordine))
+                .thenReturn(dto);
+
+
+
+        OrdineDto result = ordineService.read(1);
+
+
+
+        assertNotNull(result);
+        assertEquals(dto,result);
+
+
+        verify(ordineRepository)
+                .findById(1);
+
+        verify(ordineMapper)
+                .toDTO(ordine);
+    }
+
+
+    @Test
+    void findByImporto_repositoryException(){
+
+        when(ordineRepository.findByImporto(1000))
+                .thenThrow(new RuntimeException("Database error"));
+
+
+        assertThrows(
+                RuntimeException.class,
+                () -> ordineService.findByImporto(1000)
+        );
+
+
+        verify(ordineRepository)
+                .findByImporto(1000);
+    }
+
+    @Test
+    void findByQuantita_nullResult(){
+
+        when(ordineRepository.findByQuantita(10))
+                .thenReturn(null);
+
+
+        when(ordineMapper.toDTOList(null))
+                .thenReturn(null);
+
+
+
+        List<OrdineDto> result =
+                ordineService.findByQuantita(10);
+
+
+
+        assertNull(result);
+    }
 
 
     @Test

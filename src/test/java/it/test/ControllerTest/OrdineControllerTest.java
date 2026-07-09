@@ -484,4 +484,49 @@ public class OrdineControllerTest {
                 .getDatabaseUrl();
     }
 
+    @Test
+    void url_negative() throws Exception {
+
+        when(ordineService.getDatabaseUrl())
+                .thenReturn("");
+
+        mockMvc.perform(
+                        get("/ordine/url")
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().string(""));
+
+        verify(ordineService)
+                .getDatabaseUrl();
+    }
+
+    @Test
+    void findByImporto_badRequest() throws Exception {
+
+        mockMvc.perform(
+                        get("/ordine/importo/abc")
+                )
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void findByImporto_multipleResults() throws Exception {
+
+        List<OrdineDto> lista = List.of(
+                new OrdineDto(1, "Laptop", LocalDateTime.now(), 1000, 1, null),
+                new OrdineDto(2, "Mouse", LocalDateTime.now(), 1000, 2, null)
+        );
+
+        when(ordineService.findByImporto(1000))
+                .thenReturn(lista);
+
+        mockMvc.perform(get("/ordine/importo/1000"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(2))
+                .andExpect(jsonPath("$[0].id").value(1))
+                .andExpect(jsonPath("$[1].id").value(2));
+    }
+
+
+
 }
