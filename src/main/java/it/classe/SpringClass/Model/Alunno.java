@@ -32,9 +32,5 @@ public class Alunno {
     private List<Auto> autos;
 
 
-    @ManyToMany(mappedBy = "alunno")
-    private List<Task> task;
-
-
 
 }

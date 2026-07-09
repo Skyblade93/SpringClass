@@ -23,10 +23,11 @@ public interface OrdineRepository extends JpaRepository<Ordine, Integer> {
     @Query("SELECT o FROM Ordine o ORDER BY o.importo DESC")
     List<Ordine> ordiniDalPiuCostoso();
 
-    @Query(value = "SELECT * FROM ordine WHERE quantita > ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM class.ordine WHERE quantita > ?1", nativeQuery = true)
     List<Ordine> cercaPerQuantitaMaggiore(int quantita);
 
-    @Query(value = "SELECT * FROM ordine WHERE id_users = ?1 ORDER BY dataCreazione DESC", nativeQuery = true)
+    @Query(value = "SELECT * FROM class.ordine WHERE id_users = ?1 ORDER BY data_creazione DESC", nativeQuery = true)
     List<Ordine> ultimiOrdini(Integer idUsers);
+
 
 }

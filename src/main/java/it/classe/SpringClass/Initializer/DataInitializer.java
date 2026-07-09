@@ -6,13 +6,17 @@ import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Profile(value="dev")
 @Component
 public class DataInitializer implements CommandLineRunner {
 
@@ -68,10 +72,7 @@ public class DataInitializer implements CommandLineRunner {
             card.setAmount(1000 + i);
             card.setAvailableAmount(800 + i);
             card.setContoCorrente(conti.get(i - 1));
-            List<Users> cu = new ArrayList<>();
-            cu.add(users.get((i - 1) % users.size()));
-            if (i % 3 == 0) cu.add(users.get(i % users.size()));
-            card.setUsers(cu);
+            card.setUsers(users.get((i - 1) % users.size()));
             em.persist(card);
             cards.add(card);
         }
@@ -129,6 +130,9 @@ public class DataInitializer implements CommandLineRunner {
             t.setTaskName("Task" + i);
             t.setDescription("Desc " + i);
             t.setCompleted(i % 2 == 0);
+            Priorita[] prioritaArray = Priorita.values();
+            t.setPriorita(prioritaArray[i % prioritaArray.length]);
+            t.setDataScadenza(LocalDate.now().plusDays(i));
             // assegna alcuni alunni alla task (1-2)
             List<Alunno> assigned = new ArrayList<>();
             assigned.add(alunni.get((i - 1) % alunni.size()));

@@ -1,5 +1,6 @@
 package it.classe.SpringClass.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,8 +19,12 @@ import java.time.LocalDateTime;
 @Table(name = "ordine", schema = "class")
 public class Ordine {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
     private Integer id;
 
     private String prodotti;
@@ -29,6 +34,7 @@ public class Ordine {
 
     @ManyToOne
     @JoinColumn(name = "id_users")
+    @JsonIgnore
     private Users users;
 
 
