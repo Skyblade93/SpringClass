@@ -2,6 +2,7 @@ package it.classe.SpringClass.Dto;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -15,5 +16,6 @@ public class UsersDto {
     private String username;
     private String password;
     private String email;
+    private ArrayList<CardsDto> cards;
 
 }
