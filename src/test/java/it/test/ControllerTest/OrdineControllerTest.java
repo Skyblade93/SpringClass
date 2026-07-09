@@ -39,6 +39,60 @@ public class OrdineControllerTest {
     private OrdineService ordineService;
 
     @Test
+    void getAll_positive() throws Exception {
+
+
+        List<OrdineDto> lista = List.of(
+                new OrdineDto(
+                        1,
+                        "Laptop",
+                        LocalDateTime.now(),
+                        1000,
+                        1,
+                        null
+                )
+        );
+
+
+        when(ordineService.getAll())
+                .thenReturn(lista);
+
+
+
+        mockMvc.perform(
+                        get("/ordine/getall")
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(1));
+
+
+
+        verify(ordineService)
+                .getAll();
+    }
+
+    @Test
+    void getAll_negative() throws Exception {
+
+
+        when(ordineService.getAll())
+                .thenReturn(new ArrayList<>());
+
+
+
+        mockMvc.perform(
+                        get("/ordine/getall")
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(0));
+
+
+
+        verify(ordineService)
+                .getAll();
+    }
+
+    @Test
     void findByDataCreazione_positive() throws Exception {
 
         LocalDateTime data = LocalDateTime.of(2026, 7, 9, 10, 30);
