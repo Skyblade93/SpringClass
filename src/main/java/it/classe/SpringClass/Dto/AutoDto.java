@@ -18,6 +18,8 @@ public class AutoDto {
         private String marca;
         private String modello;
         private String colore;
+        private AlunnoDto alunno;
+        private UsersDto users;
 
 }
 

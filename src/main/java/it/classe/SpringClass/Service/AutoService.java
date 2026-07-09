@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class AutoService extends AbstractService<Auto, AutoDto> {
     private static final Logger log = LoggerFactory.getLogger(AutoService.class);

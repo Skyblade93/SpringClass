@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+
 @Setter
 @Getter
 @Entity
@@ -32,4 +34,6 @@ public class Auto {
     @JoinColumn(name = "alunno_id")
     private Alunno alunno;
 
+    public <E> Auto(int i, String number, String fiat, String panda, String grigio, ArrayList<E> es) {
+    }
 }
