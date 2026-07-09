@@ -1,6 +1,6 @@
 package it.classe.SpringClass.Model;
 
 public enum PaymentMethod {
-    Visa,
-    MasterCard
+    VISA,
+    MASTER_CARD
 }
