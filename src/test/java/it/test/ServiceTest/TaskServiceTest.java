@@ -178,7 +178,8 @@ class TaskServiceTest {
         dtoUrgente.setTaskName("Consegnare progetto");
         List<TaskDto> listaDtoFinta = List.of(dtoUrgente);
 
-        when(taskMapper.toDTOList(anyList())).thenReturn(listaDtoFinta);
+        when(taskRepository.findByCompletedFalseOrderByDataScadenzaAsc()).thenReturn(listaTaskFinta);
+        when(taskMapper.toDTOList(listaTaskFinta)).thenReturn(listaDtoFinta);
         List<TaskDto> risultato = taskService.findTaskUrgenti();
 
         assertNotNull(risultato, "La lista risultato non deve essere nulla");

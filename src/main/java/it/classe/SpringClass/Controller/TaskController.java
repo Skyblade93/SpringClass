@@ -21,7 +21,7 @@ public class TaskController extends AbstractController<TaskDto>{
     }
 
     @GetMapping("/cerca")
-    public List<TaskDto> cercaPerDescrizione(String descrizione){
+    public List<TaskDto> cercaPerDescrizione(@RequestParam("descrizione") String descrizione){
         return taskService.findByTaskNameContaining(descrizione);
     }
 
