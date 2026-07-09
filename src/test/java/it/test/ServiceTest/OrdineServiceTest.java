@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -88,6 +89,54 @@ public class OrdineServiceTest {
 
 
     @Test
+    void insert_negative() {
+
+        OrdineDto dto = new OrdineDto(
+                1,
+                "Laptop",
+                LocalDateTime.now(),
+                1000,
+                1,
+                null
+        );
+
+
+        Ordine ordine = new Ordine(
+                1,
+                "Laptop",
+                dto.getDataCreazione(),
+                1000,
+                1,
+                null
+        );
+
+
+        when(ordineMapper.toEntity(dto))
+                .thenReturn(ordine);
+
+
+        when(ordineRepository.save(ordine))
+                .thenThrow(new RuntimeException("Errore salvataggio ordine"));
+
+
+
+        assertThrows(
+                RuntimeException.class,
+                () -> ordineService.insert(dto)
+        );
+
+
+
+        verify(ordineMapper)
+                .toEntity(dto);
+
+
+        verify(ordineRepository)
+                .save(ordine);
+    }
+
+
+    @Test
     void update_positive() {
 
         OrdineDto dto = new OrdineDto(
@@ -136,6 +185,54 @@ public class OrdineServiceTest {
     }
 
     @Test
+    void update_negative() {
+
+
+        OrdineDto dto = new OrdineDto(
+                1,
+                "PC",
+                LocalDateTime.now(),
+                2000,
+                1,
+                null
+        );
+
+
+        Ordine ordine = new Ordine(
+                1,
+                "PC",
+                dto.getDataCreazione(),
+                2000,
+                1,
+                null
+        );
+
+
+        when(ordineMapper.toEntity(dto))
+                .thenReturn(ordine);
+
+
+        when(ordineRepository.save(ordine))
+                .thenThrow(new RuntimeException("Errore aggiornamento"));
+
+
+
+        assertThrows(
+                RuntimeException.class,
+                () -> ordineService.update(dto)
+        );
+
+
+
+        verify(ordineMapper)
+                .toEntity(dto);
+
+
+        verify(ordineRepository)
+                .save(ordine);
+    }
+
+    @Test
     void delete_positive(){
 
         Integer id = 1;
@@ -148,6 +245,29 @@ public class OrdineServiceTest {
 
 
         ordineService.delete(id);
+
+
+
+        verify(ordineRepository)
+                .deleteById(id);
+    }
+
+    @Test
+    void delete_negative() {
+
+        Integer id = 99;
+
+
+        doThrow(new RuntimeException("Ordine non trovato"))
+                .when(ordineRepository)
+                .deleteById(id);
+
+
+
+        assertThrows(
+                RuntimeException.class,
+                () -> ordineService.delete(id)
+        );
 
 
 
@@ -200,6 +320,29 @@ public class OrdineServiceTest {
 
         verify(ordineMapper)
                 .toDTO(ordine);
+    }
+
+    @Test
+    void read_negative() {
+
+
+        Integer id = 99;
+
+
+        when(ordineRepository.findById(id))
+                .thenReturn(Optional.empty());
+
+
+
+        assertThrows(
+                NoSuchElementException.class,
+                () -> ordineService.read(id)
+        );
+
+
+
+        verify(ordineRepository)
+                .findById(id);
     }
 
 
