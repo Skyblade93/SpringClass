@@ -1,29 +1,32 @@
 package it.test.ServiceTest;
 
+import it.classe.SpringClass.Dto.CardsDto;
 import it.classe.SpringClass.Dto.UsersDto;
+import it.classe.SpringClass.Mapper.Converter;
 import it.classe.SpringClass.Mapper.UsersMapper;
+import it.classe.SpringClass.Model.Cards;
 import it.classe.SpringClass.Model.Users;
 import it.classe.SpringClass.Repository.UsersRepository;
 import it.classe.SpringClass.Service.UsersService;
-
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-
 @ExtendWith(MockitoExtension.class)
 public class UsersServiceTest {
-
 
     private  final Logger log = org.slf4j.LoggerFactory.getLogger(UsersServiceTest.class);
 
@@ -35,7 +38,6 @@ public class UsersServiceTest {
 
     @InjectMocks
     private UsersService usersService;
-
 
     @Test
     void findAll() {
@@ -78,7 +80,6 @@ public class UsersServiceTest {
 
     }
 
-    /*
     @Test
     void findById() {
         Users user = new Users(1,"topolino","12345","topo@topomail.com",new ArrayList<>());
@@ -90,7 +91,9 @@ public class UsersServiceTest {
 
 
         // Act: call the service method
-        Users actual =  repository.findById(1).orElse(null);
+        UsersDto actual = when(converter.toDTO(any(Users.class)))
+                .thenReturn(new UsersDto(1,"topolino","12345","topo@topomail.com",new ArrayList<>()));
+
         log.info("Finding user by ID: " + actual);
 
         // Assert
@@ -99,6 +102,6 @@ public class UsersServiceTest {
         verify(repository, times(1)).findById(1);
        // verify(converter, times(1)).toDTO(user);
        // verifyNoMoreInteractions(repository, converter);
-    }*/
+    }
 
 }
