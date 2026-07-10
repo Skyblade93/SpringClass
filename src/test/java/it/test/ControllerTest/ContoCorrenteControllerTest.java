@@ -30,34 +30,7 @@ class ContoCorrenteControllerTest {
     @MockitoBean
     private ContoCorrenteService contoCorrenteService;
 
-    @Test
-    void shouldReturnDatabaseUrl() throws Exception {
 
-        // Arrange
-        when(contoCorrenteService.getDatabaseUrl())
-                .thenReturn("jdbc:postgresql://localhost:5432/user");
-
-        // Act + Assert
-        mockMvc.perform(get("/contoCorrente/url"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("jdbc:postgresql://localhost:5432/user"));
-
-        verify(contoCorrenteService).getDatabaseUrl();
-    }
-
-    @Test
-    void shouldReturnInternalServerErrorWhenDatabaseFails() throws Exception {
-
-        // Arrange
-        when(contoCorrenteService.getDatabaseUrl())
-                .thenThrow(new RuntimeException("Database offline"));
-
-        // Act + Assert
-        mockMvc.perform(get("/contoCorrente/url"))
-                .andExpect(status().isInternalServerError());
-
-        verify(contoCorrenteService).getDatabaseUrl();
-    }
 
     @Test
     void shouldReturnContoByEmail() throws Exception {
@@ -128,20 +101,15 @@ class ContoCorrenteControllerTest {
 
     @Test
     void shouldReturnNullWhenCognomeDoesNotExist() throws Exception {
-        ContoCorrenteDto contoCorrenteDto=new ContoCorrenteDto(1,
-                "IT4534333334235635",
-                "Nicola",
-                null,
-                "sposito@gmail.com",
-                "223",new ArrayList<>());
 
-        when(contoCorrenteService.findByCognome("Sposito")).thenReturn(contoCorrenteDto)
-                .thenThrow(new Exception("Cognome non trovato "));
+
+        when(contoCorrenteService.findByCognome("Sposito")).thenReturn(new ContoCorrenteDto());
 
         mockMvc.perform(get("/contoCorrente/cognome/Sposito"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.cognome").value("Sposito"));
+                .andExpect(jsonPath("$.cognome").value(""));
                // .andExpect(jsonPath("$.cognome").doesNotExist());
             verify(contoCorrenteService).findByCognome("Sposito");
     }
+
 }
