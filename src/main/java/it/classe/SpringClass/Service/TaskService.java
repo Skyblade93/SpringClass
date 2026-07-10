@@ -40,6 +40,10 @@ public class TaskService extends AbstractService<Task,TaskDto>{
         return taskMapper.toDTOList(taskRepository.findByTaskNameContaining(keyword));
     }
 
+    public List<TaskDto> findByDescription(String descrizione) {
+        List<Task> tasks = taskRepository.findByDescriptionContainingIgnoreCase(descrizione);
+        return taskMapper.toDTOList(tasks);
+    }
 
     public List<TaskDto> findTaskUrgenti() {
         return taskMapper.toDTOList(taskRepository.findByCompletedFalseOrderByDataScadenzaAsc());

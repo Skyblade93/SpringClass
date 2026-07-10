@@ -16,6 +16,7 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
     //List<Task> findByCompletedTrue();
     List<Task> findByCompleted(boolean status);
     List<Task> findByCompletedFalseOrderByDataScadenzaAsc(); // task con le scadenze più vicine
+    List<Task> findByDescriptionContainingIgnoreCase(String description);
 
     @Query("SELECT t FROM Task t WHERE t.taskName = ?1 AND t.completed = ?2")
     List<Task> trovaPerNomeEStato(String nome, boolean stato);
