@@ -3,25 +3,30 @@ package it.test.ControllerTest;
 
 import it.classe.SpringClass.Controller.OrdineController;
 import it.classe.SpringClass.Dto.OrdineDto;
-import it.classe.SpringClass.Dto.UsersDto;
 import it.classe.SpringClass.Model.Users;
 import it.classe.SpringClass.Service.OrdineService;
 import it.classe.SpringClass.SpringClassApplication;
 import org.junit.jupiter.api.BeforeEach;
+
+import org.springframework.http.MediaType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -60,13 +65,183 @@ public class OrdineControllerTest {
         ordineDto1= new OrdineDto(
                 2,
                 "Mouse",
-                LocalDateTime.now(),
+                data,
                 1000,
                 2,
                 null
         );
 
     }
+
+    @Test
+    void read_positive() throws Exception {
+
+        when(ordineService.read(1))
+                .thenReturn(ordineDto);
+
+        mockMvc.perform(
+                        get("/ordine/read?id=1")
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1));
+
+        verify(ordineService)
+                .read(1);
+    }
+
+    @Test
+    void read_negative() throws Exception {
+
+        when(ordineService.read(99))
+                .thenThrow(new RuntimeException("Ordine non trovato"));
+
+        assertThrows(Exception.class, () ->
+                mockMvc.perform(
+                        get("/ordine/read?id=99")
+                )
+        );
+
+        verify(ordineService)
+                .read(99);
+    }
+
+
+    @Test
+    void insert_positive() throws Exception {
+
+        when(ordineService.insert(any(OrdineDto.class)))
+                .thenReturn(ordineDto);
+
+
+        mockMvc.perform(
+                        post("/ordine/insert")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{"
+                                        + "\"id\":1,"
+                                        + "\"prodotti\":\"Laptop\","
+                                        + "\"dataCreazione\":\"2026-07-09T10:30:00\","
+                                        + "\"importo\":1000,"
+                                        + "\"quantita\":1"
+                                        + "}")
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1));
+
+
+        verify(ordineService)
+                .insert(any(OrdineDto.class));
+    }
+
+    @Test
+    void insert_negative() throws Exception {
+
+        when(ordineService.insert(any(OrdineDto.class)))
+                .thenThrow(new RuntimeException("Errore inserimento"));
+
+
+        assertThrows(Exception.class, () ->
+                mockMvc.perform(
+                        post("/ordine/insert")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{"
+                                        + "\"id\":1,"
+                                        + "\"prodotti\":\"Laptop\","
+                                        + "\"dataCreazione\":\"2026-07-09T10:30:00\","
+                                        + "\"importo\":1000,"
+                                        + "\"quantita\":1"
+                                        + "}")
+                )
+        );
+
+
+        verify(ordineService)
+                .insert(any(OrdineDto.class));
+    }
+
+
+    @Test
+    void update_positive() throws Exception {
+
+        when(ordineService.update(any(OrdineDto.class)))
+                .thenReturn(ordineDto);
+
+
+        mockMvc.perform(
+                        put("/ordine/update")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{\"id\":1,\"prodotti\":\"Laptop\",\"dataCreazione\":\"2026-07-09T10:30:00\",\"importo\":1000,\"quantita\":1}")
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1));
+
+
+        verify(ordineService)
+                .update(any(OrdineDto.class));
+    }
+
+    @Test
+    void update_negative() throws Exception {
+
+        when(ordineService.update(any(OrdineDto.class)))
+                .thenThrow(new RuntimeException("Errore modifica"));
+
+        assertThrows(Exception.class, () ->
+                mockMvc.perform(
+                        put("/ordine/update")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{"
+                                        + "\"id\":99,"
+                                        + "\"prodotti\":\"Tablet\","
+                                        + "\"dataCreazione\":\"2026-07-09T10:30:00\","
+                                        + "\"importo\":500,"
+                                        + "\"quantita\":2"
+                                        + "}")
+                )
+        );
+
+        verify(ordineService)
+                .update(any(OrdineDto.class));
+    }
+
+
+    @Test
+    void delete_positive() throws Exception {
+
+        doNothing()
+                .when(ordineService)
+                .delete(1);
+
+
+        mockMvc.perform(
+                        delete("/ordine/delete?id=1")
+                )
+                .andExpect(status().isOk());
+
+
+        verify(ordineService)
+                .delete(1);
+    }
+
+    @Test
+    void delete_negative() throws Exception {
+
+        doThrow(new RuntimeException("Ordine non trovato"))
+                .when(ordineService)
+                .delete(99);
+
+
+        assertThrows(
+                Exception.class,
+                () -> mockMvc.perform(
+                        delete("/ordine/delete?id=99")
+                )
+        );
+
+
+        verify(ordineService)
+                .delete(99);
+    }
+
 
     @Test
     void getAll_positive() throws Exception {
@@ -177,10 +352,8 @@ public class OrdineControllerTest {
     @Test
     void findByUsers_positive() throws Exception {
 
-        List<OrdineDto> lista = List.of(ordineDto);
-
         when(ordineService.findByUsers(any(Users.class)))
-                .thenReturn(lista);
+                .thenReturn(List.of(ordineDto));
 
         mockMvc.perform(
                         get("/ordine/users/1")
@@ -415,16 +588,21 @@ public class OrdineControllerTest {
     @Test
     void findByImporto_multipleResults() throws Exception {
 
-        List<OrdineDto> lista = List.of(ordineDto,ordineDto1);
+        List<OrdineDto> lista = List.of(ordineDto, ordineDto1);
 
-        when(ordineService.findByImporto(1000))
+        when(ordineService.findByImporto(1000.0))
                 .thenReturn(lista);
 
-        mockMvc.perform(get("/ordine/importo/1000"))
+        mockMvc.perform(
+                        get("/ordine/importo/1000")
+                )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(2))
                 .andExpect(jsonPath("$[0].id").value(1))
                 .andExpect(jsonPath("$[1].id").value(2));
+
+        verify(ordineService)
+                .findByImporto(1000.0);
     }
 
 
