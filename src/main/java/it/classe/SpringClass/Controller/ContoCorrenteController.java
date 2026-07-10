@@ -24,4 +24,10 @@ public class ContoCorrenteController extends AbstractController<ContoCorrenteDto
               {
                   return contoCorrenteService.findByEmail(email);
               }
+
+            @GetMapping("/cognome/{cognome}")
+            public ContoCorrenteDto findByCognome(@PathVariable String  cognome){
+                          return contoCorrenteService.findByCognome(cognome);
+
+                      }
 }

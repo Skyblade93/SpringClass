@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -107,4 +108,40 @@ class ContoCorrenteControllerTest {
         verify(contoCorrenteService).findByEmail("errore@mail.it");
     }
 
+        @Test
+        void shouldReturnContoByCognome() throws Exception {
+                ContoCorrenteDto contoCorrenteDto=new ContoCorrenteDto(1,
+                        "IT4534333334235635",
+                        "Nicola",
+                        "Sposito",
+                        "sposito@gmail.com",
+                        "223",new ArrayList<>());
+
+                when(contoCorrenteService.findByCognome("Sposito")).thenReturn(contoCorrenteDto);
+
+            mockMvc.perform(get("/contoCorrente/cognome/Sposito"))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.cognome").value("Sposito"));
+
+        }
+
+
+    @Test
+    void shouldReturnNullWhenCognomeDoesNotExist() throws Exception {
+        ContoCorrenteDto contoCorrenteDto=new ContoCorrenteDto(1,
+                "IT4534333334235635",
+                "Nicola",
+                null,
+                "sposito@gmail.com",
+                "223",new ArrayList<>());
+
+        when(contoCorrenteService.findByCognome("Sposito")).thenReturn(contoCorrenteDto)
+                .thenThrow(new Exception("Cognome non trovato "));
+
+        mockMvc.perform(get("/contoCorrente/cognome/Sposito"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.cognome").value("Sposito"));
+               // .andExpect(jsonPath("$.cognome").doesNotExist());
+            verify(contoCorrenteService).findByCognome("Sposito");
+    }
 }
