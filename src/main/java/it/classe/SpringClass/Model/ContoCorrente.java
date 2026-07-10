@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name="ContoCorrente" ,schema="class")
+@Table(name="contoCorrente" ,schema="class")
 public class ContoCorrente {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)

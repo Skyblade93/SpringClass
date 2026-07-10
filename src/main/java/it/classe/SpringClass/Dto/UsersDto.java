@@ -16,6 +16,5 @@ public class UsersDto {
     private String username;
     private String password;
     private String email;
-    private ArrayList<CardsDto> cards;
 
 }

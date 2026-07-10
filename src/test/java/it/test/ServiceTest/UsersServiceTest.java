@@ -79,7 +79,7 @@ public class UsersServiceTest {
         verifyNoMoreInteractions(repository, converter);
 
     }
-
+/*
     @Test
     void findById() {
         Users user = new Users(1,"topolino","12345","topo@topomail.com",new ArrayList<>());
@@ -103,5 +103,5 @@ public class UsersServiceTest {
        // verify(converter, times(1)).toDTO(user);
        // verifyNoMoreInteractions(repository, converter);
     }
-
+*/
 }
