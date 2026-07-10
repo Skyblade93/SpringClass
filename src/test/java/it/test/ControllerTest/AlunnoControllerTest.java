@@ -73,4 +73,39 @@ public class AlunnoControllerTest {
         verify(alunnoService, times(1)).findByNome("Pluto");
         verifyNoMoreInteractions(alunnoService);
     }
+    @Test
+    void findByCognome_ok() {
+        AlunnoDto dto = new AlunnoDto(
+                1,
+                "Peppe",
+                "Sbrescia",
+                8,
+                Scuola.PSICO,
+                List.of(),
+                List.of()
+        );
+
+        when(alunnoService.findByCognome("Sbrescia")).thenReturn(dto);
+
+        AlunnoDto actual = alunnoController.findByCognome("Sbrescia");
+
+        assertNotNull(actual);
+        assertEquals(dto, actual);
+
+        verify(alunnoService, times(1)).findByCognome("Sbrescia");
+        verifyNoMoreInteractions(alunnoService);
+    }
+
+    @Test
+    void findByCognome_ko() {
+        when(alunnoService.findByCognome("Berlusconi")).thenReturn(null);
+
+        AlunnoDto actual = alunnoController.findByCognome("Berlusconi");
+
+        assertNull(actual);
+
+        verify(alunnoService, times(1)).findByCognome("Berlusconi");
+        verifyNoMoreInteractions(alunnoService);
+    }
+
 }
