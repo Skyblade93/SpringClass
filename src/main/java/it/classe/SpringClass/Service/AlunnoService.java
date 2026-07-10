@@ -31,6 +31,10 @@ public class AlunnoService extends AbstractService<Alunno, AlunnoDto> {
     public AlunnoDto findByNome(String nome) {
         return alunnoMapper.toDTO(alunnoRepository.findByNome(nome));
     }
+    public AlunnoDto findByCognome(String cognome) {
+        return alunnoMapper.toDTO(alunnoRepository.findByCognome(cognome));
+    }
+
 
     public String getDatabaseUrl() {
         return databaseUrl;

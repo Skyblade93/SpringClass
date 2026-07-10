@@ -22,4 +22,9 @@ public class AlunnoController extends AbstractController<AlunnoDto> {
     public AlunnoDto findByNome(@PathVariable String nome) {
         return alunnoService.findByNome(nome);
     }
+
+    @GetMapping("/cognome/{cognome}")
+    public AlunnoDto findByCognome(@PathVariable String cognome) {
+        return alunnoService.findByCognome(cognome);
+    }
 }

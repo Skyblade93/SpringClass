@@ -140,4 +140,53 @@ public class AlunnoServiceTest {
         verify(alunnoRepository, times(1)).findByNome("Pluto");
         verify(alunnoMapper, times(1)).toDTO(null);
     }
-}
+
+    //TEST PER COGNOME
+    @Test
+    void findByCognome_ok() {
+
+        Alunno alunno = new Alunno(
+                1,
+                "Peppe",
+                "Sbrescia",
+                8,
+                Scuola.PSICO,
+                List.of()
+        );
+
+        AlunnoDto dto = new AlunnoDto(
+                1,
+                "Peppe",
+                "Sbrescia",
+                8,
+                Scuola.PSICO,
+                List.of(),
+                List.of()
+        );
+
+        when(alunnoRepository.findByCognome("Sbrescia")).thenReturn(alunno);
+        when(alunnoMapper.toDTO(alunno)).thenReturn(dto);
+
+        AlunnoDto actual = alunnoService.findByCognome("Sbrescia");
+
+        assertNotNull(actual);
+        assertEquals("Sbrescia", actual.getCognome());
+
+        verify(alunnoRepository, times(1)).findByCognome("Sbrescia");
+        verify(alunnoMapper, times(1)).toDTO(alunno);
+    }
+
+//TEST COGNOME FALLITO
+@Test
+void findByCognome_fallito() {
+
+    when(alunnoRepository.findByCognome("Berlusconi")).thenReturn(null);
+    when(alunnoMapper.toDTO(null)).thenReturn(null);
+
+    AlunnoDto actual = alunnoService.findByCognome("Berlusconi");
+
+    assertNull(actual);
+
+    verify(alunnoRepository, times(1)).findByCognome("Berlusconi");
+    verify(alunnoMapper, times(1)).toDTO(null);
+}}
