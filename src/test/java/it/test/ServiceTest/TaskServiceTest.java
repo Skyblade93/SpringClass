@@ -126,8 +126,9 @@ class TaskServiceTest {
     }
 
     @Test
-    void testFindByDescription_successo(){
+    void testFindByDescription_successo() {
         String descrizione = "descrizione1";
+
         Task task = new Task();
         task.setDescription(descrizione);
         List<Task> ListaTaskFinta = List.of(task);
@@ -136,33 +137,38 @@ class TaskServiceTest {
         taskDto.setDescription(descrizione);
         List<TaskDto> ListaTaskDto = List.of(taskDto);
 
-        when(taskRepository.findByTaskNameContaining(descrizione)).thenReturn(ListaTaskFinta);
+        when(taskRepository.findByDescriptionContainingIgnoreCase(descrizione)).thenReturn(ListaTaskFinta);
         when(taskMapper.toDTOList(ListaTaskFinta)).thenReturn(ListaTaskDto);
 
-        List<TaskDto> risultato = taskService.findByTaskNameContaining(descrizione);
+
+        List<TaskDto> risultato = taskService.findByDescription(descrizione);
 
         assertNotNull(risultato, "La lista risultato non deve essere nulla");
         assertEquals(1, risultato.size(), "La lista deve contenere esattamente 1 elemento");
         assertEquals(descrizione, risultato.get(0).getDescription(), "La descrizione deve corrispondere");
 
-        verify(taskRepository, times(1)).findByTaskNameContaining(descrizione);
-        verify(taskMapper, times(1)).toDTOList(ListaTaskFinta);
+        verify(taskRepository).findByDescriptionContainingIgnoreCase(descrizione);
+        verify(taskMapper).toDTOList(ListaTaskFinta);
     }
 
     @Test
-    void testFindByDescription_nonSuccesso(){
+    void testFindByDescription_nonSuccesso() {
         String descrizione = "descrizioneInesistente";
 
-        when(taskRepository.findByTaskNameContaining(descrizione)).thenReturn(Collections.emptyList());
+        when(taskRepository.findByDescriptionContainingIgnoreCase(descrizione)).thenReturn(Collections.emptyList());
         when(taskMapper.toDTOList(Collections.emptyList())).thenReturn(Collections.emptyList());
 
-        List<TaskDto> risultato = taskService.findByTaskNameContaining(descrizione);
+
+        // Usiamo il nuovo metodo del Service
+        List<TaskDto> risultato = taskService.findByDescription(descrizione);
+
 
         assertNotNull(risultato, "Il service deve restituire una lista vuota, non null");
         assertTrue(risultato.isEmpty(), "La lista risultato deve essere vuota");
 
-        verify(taskRepository, times(1)).findByTaskNameContaining(descrizione);
-        verify(taskMapper, times(1)).toDTOList(Collections.emptyList());
+
+        verify(taskRepository).findByDescriptionContainingIgnoreCase(descrizione);
+        verify(taskMapper).toDTOList(Collections.emptyList());
     }
 
     @Test
