@@ -46,8 +46,7 @@ public class UsersServiceTest {
                 1,
                 "paperino",
                 "098765",
-                "paperino@papero.it",
-                new ArrayList<>()
+                "paperino@papero.it"
         );
 
         List<Users> users = List.of(user);
@@ -56,8 +55,8 @@ public class UsersServiceTest {
                 1,
                 "paperino",
                 "098765",
-                "paperino@papero.it",
-                new ArrayList<>()
+                "paperino@papero.it"
+
         );
 
         List<UsersDto> expected = List.of(dto);

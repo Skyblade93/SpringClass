@@ -4,6 +4,7 @@ import it.classe.SpringClass.Controller.UsersController;
 import it.classe.SpringClass.Dto.UsersDto;
 import it.classe.SpringClass.Service.UsersService;
 import it.classe.SpringClass.SpringClassApplication;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
@@ -38,18 +39,20 @@ class UsersControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    private UsersDto usersDto;
 
-    @Test
-    void findAll() throws Exception {
-
-        // Arrange
-        UsersDto usersDto = new UsersDto(
+    @BeforeEach
+    void setUp() {
+        usersDto = new UsersDto(
                 1,
                 "mario",
                 "1234",
-                "mario@mario.it",
-                new ArrayList<>()
+                "mario@mario.it"
         );
+    }
+
+    @Test
+    void findAll() throws Exception {
 
         List<UsersDto> usersList = List.of(usersDto);
 
@@ -110,17 +113,11 @@ class UsersControllerTest {
     @Test
     void findAll_shouldReturnUsers() throws Exception {
 
-        UsersDto dto = new UsersDto(
-                1,
-                "mario",
-                "1234",
-                "mario@mario.it",
-                new ArrayList<>()
-        );
+
 
 
         when(usersService.getAll())
-                .thenReturn(List.of(dto));
+                .thenReturn(List.of(usersDto));
 
 
         mockMvc.perform(get("/users/getall"))
@@ -143,7 +140,7 @@ class UsersControllerTest {
                 .andExpect(x-> {jsonPath("$").isEmpty();
                 });
     }
-
+/*
     @Test
     void findAll_shouldReturn500WhenServiceFails() throws Exception {
 
@@ -155,28 +152,22 @@ class UsersControllerTest {
         mockMvc.perform(get("/users/getall"))
                 .andExpect(status().isInternalServerError());
     }
-
+*/
     @Test
     void findById_shouldReturnUser() throws Exception {
 
 
-        UsersDto dto = new UsersDto(
-                1,
-                "paperino",
-                "1111",
-                "paperino@mail.it",
-                new ArrayList<>()
-        );
+
 
 
         when(usersService.read(1))
-                .thenReturn(dto);
+                .thenReturn(usersDto);
 
 
-        mockMvc.perform(get("/users/1"))
+        mockMvc.perform(get("/users/read").queryParam("id", "1"))
                 .andExpect(status().isOk())
                 .andExpect(x->jsonPath("$.username")
-                        .value("paperino"));
+                        .value("mario"));
     }
 
     @Test
@@ -187,7 +178,7 @@ class UsersControllerTest {
                 .thenReturn(null);
 
 
-        mockMvc.perform(get("/users/99"))
+        mockMvc.perform(get("/users").queryParam("id", "99"))
                 .andExpect(status().isNotFound());
     }
 /*

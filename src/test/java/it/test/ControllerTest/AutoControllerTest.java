@@ -1,5 +1,6 @@
 package it.test.ControllerTest;
 
+import it.classe.SpringClass.Controller.AutoController;
 import it.classe.SpringClass.Controller.UsersController;
 import it.classe.SpringClass.Dto.AlunnoDto;
 import it.classe.SpringClass.Dto.AutoDto;
@@ -9,6 +10,7 @@ import it.classe.SpringClass.Model.Users;
 import it.classe.SpringClass.Service.AutoService;
 import it.classe.SpringClass.Service.UsersService;
 import it.classe.SpringClass.SpringClassApplication;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
@@ -25,12 +27,13 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(AutoControllerTest.class)
+
+
+
+
+
+@WebMvcTest(AutoController.class)
 @ContextConfiguration(classes = SpringClassApplication.class)
-
-
-
-
 public class AutoControllerTest {
 
 
@@ -43,12 +46,13 @@ public class AutoControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    AutoDto autoDto ;
 
-    @Test
-    void findAll() throws Exception {
 
-        AutoDto autoDto = new AutoDto(
-                1,
+
+    @BeforeEach
+    void setUp() {
+        autoDto = new AutoDto(1,
                 2001,
                 "fiat",
                 "panda",
@@ -57,14 +61,22 @@ public class AutoControllerTest {
                 new UsersDto()
         );
 
+    }
+
+
+    @Test
+    void findAll() throws Exception {
+
+        // Arrange
+
         List<AutoDto> autoList = List.of(autoDto);
 
-        when(this.AutoService.getAll())
+        when(autoService.getAll())
                 .thenReturn(autoList);
 
 
         // Act + Assert
-        mockMvc.perform(get("/autos/getall"))
+        mockMvc.perform(get("/auto/getall"))
                 .andExpect(status().isOk())
                 .andExpect(result -> {
 
@@ -82,6 +94,28 @@ public class AutoControllerTest {
                     assertEquals(autoDto.getAnno(), returnedAuto.getAnno());
                     assertEquals(autoDto.getMarca(), returnedAuto.getMarca());
                     assertEquals(autoDto.getModello(), returnedAuto.getModello());
+                    assertEquals(autoDto.getColore(), returnedAuto.getColore());
                 });
+    }
+
+
+    @Test
+    void findById() throws Exception {
+
+        when(autoService.read(1))
+                .thenReturn(autoDto);
+
+
+
+        mockMvc.perform(get("/auto/read")
+                        .queryParam("id", "1"))
+                .andExpect(status().isOk())
+                .andExpect(result -> {
+                    String json = result.getResponse().getContentAsString();
+                    AutoDto response = objectMapper.readValue(json, AutoDto.class);
+
+                    assertEquals(autoDto, response);
+                });
+
     }
 }

@@ -2,16 +2,14 @@ package it.classe.SpringClass.Dto;
 
 import it.classe.SpringClass.Model.Users;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@ToString
+@EqualsAndHashCode
 public class AutoDto {
         private Integer id;
         private Integer anno;
