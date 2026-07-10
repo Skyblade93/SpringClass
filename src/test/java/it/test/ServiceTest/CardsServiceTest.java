@@ -15,9 +15,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
@@ -83,7 +85,7 @@ public class CardsServiceTest {
 
         when(cardsRepository.findAll()).thenReturn(listEntity);
         log.info("Finding all cards "+cards);
-        when(cardsMapper.toDTOList((Iterable<Cards>) cards)).thenReturn(cardsDtos);
+        when(cardsMapper.toDTOList(listEntity)).thenReturn(cardsDtos);
         // Act
         List<CardsDto> actual = new ArrayList<>();
         cardsService.getAll().forEach(actual::add);
@@ -150,5 +152,109 @@ public class CardsServiceTest {
 
         verify(cardsMapper, times(1))
                 .toDTO(cards);
+    }
+
+    @Test
+    void findByTelefono(){
+        Cards cards = createCards();
+        CardsDto cardsDto = createCardsDto();
+
+        when(cardsRepository.findByTelefono("1234")).thenReturn(cards);
+        when(cardsMapper.toDTO(cards)).thenReturn(cardsDto);
+
+        CardsDto result = cardsService.findByTelefono("1234");
+
+        assertNotNull(result);
+        assertEquals("1234", result.getTelefono());
+        verify(cardsRepository, times(1)).findByTelefono("1234");
+    }
+
+    @Test
+    void findByAmount() {
+        Cards cards = createCards();
+        CardsDto cardsDto = createCardsDto();
+        List<Cards> cardsList = List.of(cards);
+        List<CardsDto> dtoList = List.of(cardsDto);
+
+        when(cardsRepository.findByAmount(1000)).thenReturn(cardsList);
+        when(cardsMapper.toDTOList(cardsList)).thenReturn(dtoList);
+
+        List<CardsDto> result = cardsService.findByAmount(1000);
+
+        assertEquals(1, result.size());
+        assertEquals(1000, result.get(0).getAmount());
+    }
+
+    @Test
+    void findByAvailableAmount() {
+        Cards cards = createCards();
+        CardsDto cardsDto = createCardsDto();
+        List<Cards> cardsList = List.of(cards);
+        List<CardsDto> dtoList = List.of(cardsDto);
+
+        when(cardsRepository.findByAvailableAmount(800)).thenReturn(cardsList);
+        when(cardsMapper.toDTOList(cardsList)).thenReturn(dtoList);
+
+        List<CardsDto> result = cardsService.findByAvailableAmount(800);
+
+        assertEquals(1, result.size());
+        assertEquals(800, result.get(0).getAvailableAmount());
+    }
+
+    @Test
+    void updateTelefono() throws Exception {
+        Cards cards = createCards(); // ID = 1, vecchio telefono = "1234"
+        Cards updatedCards = createCards();
+        updatedCards.setTelefono("5678"); // Nuovo telefono modificato
+
+        CardsDto updatedDto = createCardsDto();
+        updatedDto.setTelefono("5678");
+
+        // findById per controllare se esiste
+        when(cardsRepository.findById(1)).thenReturn(Optional.of(cards));
+        when(cardsRepository.save(any(Cards.class))).thenReturn(updatedCards);
+        when(cardsMapper.toDTO(updatedCards)).thenReturn(updatedDto);
+
+        CardsDto result = cardsService.changeTelefono(1, "5678");
+
+        assertNotNull(result);
+        assertEquals("5678", result.getTelefono());
+        verify(cardsRepository, times(1)).save(any(Cards.class));
+    }
+
+    @Test
+    void findByCardNumber_NotFound_ReturnsNull() {
+        // database a restituire null (carta non trovata)
+        when(cardsRepository.findByCardNumber("9999")).thenReturn(null);
+
+        CardsDto result = cardsService.findByCardNumber("9999");
+
+        // Se la logica del tuo service ritorna null (o lancia eccezione, adatta di conseguenza)
+        assertNull(result);
+        verify(cardsMapper, never()).toDTO(any());
+    }
+
+    @Test
+    void findByCartType_NoMatch_ReturnsEmptyList() {
+        //lista vuota se non ce
+        when(cardsRepository.findByCartType("AmericanExpress")).thenReturn(Collections.emptyList());
+        when(cardsMapper.toDTOList(Collections.emptyList())).thenReturn(Collections.emptyList());
+
+        List<CardsDto> result = cardsService.findByCartType("AmericanExpress");
+
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void updateTelefono_CardNotFound_ThrowsException() {
+        // id or vuoto
+        when(cardsRepository.findById(99)).thenReturn(Optional.empty());
+
+        assertThrows(Exception.class, () -> {
+            cardsService.changeTelefono(99, "5678");
+        });
+
+        //mi serve per non chaiamre il db visto lerrore
+        verify(cardsRepository, never()).save(any(Cards.class));
     }
 }
