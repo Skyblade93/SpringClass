@@ -68,9 +68,11 @@ public class PaymentControllerTest {
         mockMvc.perform(
                         get("/payments/payer/1")
                 )
+                // assertEquals(200, response.getStatus());
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(1))
                 .andExpect(jsonPath("$[0].amount").value(150));
+
 
         verify(paymentService)
                 .getPaymentsByPayer(1);

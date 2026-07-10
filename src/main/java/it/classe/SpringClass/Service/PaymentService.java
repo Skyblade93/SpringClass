@@ -1,14 +1,10 @@
 package it.classe.SpringClass.Service;
 
 import it.classe.SpringClass.Dto.PaymentDto;
-import it.classe.SpringClass.Mapper.Converter;
 import it.classe.SpringClass.Mapper.PaymentMapper;
 import it.classe.SpringClass.Model.Payment;
 import it.classe.SpringClass.Model.PaymentStatus;
 import it.classe.SpringClass.Repository.PaymentRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -21,8 +17,8 @@ public class PaymentService extends AbstractService<Payment, PaymentDto> {
 
     private final PaymentRepository paymentRepository;
 
-    public PaymentService(JpaRepository<Payment, Integer> repository, Converter<Payment, PaymentDto> converter, PaymentMapper paymentMapper, PaymentRepository paymentRepository){
-        super(repository, converter);
+    public PaymentService(PaymentMapper paymentMapper, PaymentRepository paymentRepository){
+        super(paymentRepository, paymentMapper);
         this.paymentMapper = paymentMapper;
         this.paymentRepository = paymentRepository;
     }
