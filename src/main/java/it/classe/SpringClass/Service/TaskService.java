@@ -19,7 +19,6 @@ public class TaskService extends AbstractService<Task,TaskDto>{
     private final TaskMapper taskMapper;
     private final TaskRepository taskRepository;
 
-    //@Value("${spring.datasource.url}")
     private String databaseUrl;
 
     public TaskService(JpaRepository<Task,Integer> repository,

@@ -41,7 +41,6 @@ public class UsersService extends AbstractService<Users, UsersDto> {
     }
 
 
-
     public String getDatabaseUrl() {
         log.info(databaseUrl);
         log.warn(databaseUrl);

@@ -24,7 +24,7 @@ public class AutoService extends AbstractService<Auto, AutoDto> {
 
     private final AutoRepository autoRepository;
 
-    //@Value("${spring.datasource.url}")
+
     private String databaseUrl;
 
     public AutoService(JpaRepository<Auto, Integer> repository, Converter<Auto, AutoDto> converter,

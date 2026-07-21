@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Transactional
-public abstract class AbstractSeeder<T> {
+public abstract class AbstractSeeder<ENTITY> {
 
     protected static final Logger log =
             LoggerFactory.getLogger(AbstractSeeder.class);
@@ -19,9 +19,9 @@ public abstract class AbstractSeeder<T> {
         this.em = em;
     }
 
-    protected abstract Class<T> getEntityClass();
+    protected abstract Class<ENTITY> getEntityClass();
 
-    protected abstract T createEntity(int index);
+    protected abstract ENTITY createEntity(int index);
 
     protected String getSeederName() {
         return getClass().getSimpleName();
@@ -68,7 +68,7 @@ public abstract class AbstractSeeder<T> {
 
         for (int i = 1; i <= missingRows; i++) {
 
-            T entity = createEntity(
+            ENTITY entity = createEntity(
                     count.intValue() + i
             );
 
